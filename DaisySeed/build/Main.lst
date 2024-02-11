@@ -1,0 +1,3047 @@
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.arch armv7e-m
+   3              		.fpu fpv5-d16
+   4              		.eabi_attribute 28, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"Main.cpp"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text._ZN5daisy9DaisySeedD2Ev,"axG",%progbits,_ZN5daisy9DaisySeedD5Ev,comdat
+  19              		.align	1
+  20              		.p2align 2,,3
+  21              		.weak	_ZN5daisy9DaisySeedD2Ev
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	_ZN5daisy9DaisySeedD2Ev:
+  27              	.LVL0:
+  28              	.LFB2529:
+  29              		.file 1 "lib/libDaisy/src/daisy_seed.h"
+   1:lib/libDaisy/src/daisy_seed.h **** #pragma once
+   2:lib/libDaisy/src/daisy_seed.h **** #ifndef DSY_SEED_H
+   3:lib/libDaisy/src/daisy_seed.h **** #define DSY_SEED_H
+   4:lib/libDaisy/src/daisy_seed.h **** 
+   5:lib/libDaisy/src/daisy_seed.h **** #include "daisy.h"
+   6:lib/libDaisy/src/daisy_seed.h **** 
+   7:lib/libDaisy/src/daisy_seed.h **** //Uncomment this out if you're still using the rev2 hardware
+   8:lib/libDaisy/src/daisy_seed.h **** //#define SEED_REV2
+   9:lib/libDaisy/src/daisy_seed.h **** 
+  10:lib/libDaisy/src/daisy_seed.h **** namespace daisy
+  11:lib/libDaisy/src/daisy_seed.h **** {
+  12:lib/libDaisy/src/daisy_seed.h **** /**
+  13:lib/libDaisy/src/daisy_seed.h ****    @brief This is the higher-level interface for the Daisy board. \n 
+  14:lib/libDaisy/src/daisy_seed.h ****     All basic peripheral configuration/initialization is setup here. \n
+  15:lib/libDaisy/src/daisy_seed.h **** 
+  16:lib/libDaisy/src/daisy_seed.h ****    @ingroup boards
+  17:lib/libDaisy/src/daisy_seed.h **** */
+  18:lib/libDaisy/src/daisy_seed.h **** class DaisySeed
+  19:lib/libDaisy/src/daisy_seed.h **** {
+  20:lib/libDaisy/src/daisy_seed.h ****   public:
+  21:lib/libDaisy/src/daisy_seed.h ****     DaisySeed() {}
+  22:lib/libDaisy/src/daisy_seed.h ****     ~DaisySeed() {}
+  30              		.loc 1 22 5 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              	.LBB113:
+  36              	.LBI113:
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 2
+
+
+  37              		.file 2 "lib/libDaisy/src/sys/system.h"
+   1:lib/libDaisy/src/sys/system.h **** #ifndef DSY_SYSTEM_H
+   2:lib/libDaisy/src/sys/system.h **** #define DSY_SYSTEM_H
+   3:lib/libDaisy/src/sys/system.h **** 
+   4:lib/libDaisy/src/sys/system.h **** #ifndef UNIT_TEST // for unit tests, a dummy implementation is provided below
+   5:lib/libDaisy/src/sys/system.h **** 
+   6:lib/libDaisy/src/sys/system.h **** #include <cstdint>
+   7:lib/libDaisy/src/sys/system.h **** #include "per/tim.h"
+   8:lib/libDaisy/src/sys/system.h **** 
+   9:lib/libDaisy/src/sys/system.h **** namespace daisy
+  10:lib/libDaisy/src/sys/system.h **** {
+  11:lib/libDaisy/src/sys/system.h **** /** A handle for interacting with the Core System. 
+  12:lib/libDaisy/src/sys/system.h ****  ** This includes the Clock tree, MPU, global DMA initialization,
+  13:lib/libDaisy/src/sys/system.h ****  ** cache handling, and any other necessary global initiailzation
+  14:lib/libDaisy/src/sys/system.h ****  **
+  15:lib/libDaisy/src/sys/system.h ****  ** @author shensley
+  16:lib/libDaisy/src/sys/system.h ****  ** @ingroup system
+  17:lib/libDaisy/src/sys/system.h ****  */
+  18:lib/libDaisy/src/sys/system.h **** class System
+  19:lib/libDaisy/src/sys/system.h **** {
+  20:lib/libDaisy/src/sys/system.h ****   public:
+  21:lib/libDaisy/src/sys/system.h ****     /** Contains settings for initializing the System */
+  22:lib/libDaisy/src/sys/system.h ****     struct Config
+  23:lib/libDaisy/src/sys/system.h ****     {
+  24:lib/libDaisy/src/sys/system.h ****         /** Specifies the system clock frequency that feeds APB/AHB clocks, etc. */
+  25:lib/libDaisy/src/sys/system.h ****         enum class SysClkFreq
+  26:lib/libDaisy/src/sys/system.h ****         {
+  27:lib/libDaisy/src/sys/system.h ****             FREQ_400MHZ,
+  28:lib/libDaisy/src/sys/system.h ****             FREQ_480MHZ,
+  29:lib/libDaisy/src/sys/system.h ****         };
+  30:lib/libDaisy/src/sys/system.h **** 
+  31:lib/libDaisy/src/sys/system.h ****         /** Method to call on the struct to set to defaults
+  32:lib/libDaisy/src/sys/system.h ****          ** CPU Freq set to 400MHz
+  33:lib/libDaisy/src/sys/system.h ****          ** Cache Enabled 
+  34:lib/libDaisy/src/sys/system.h ****          ** */
+  35:lib/libDaisy/src/sys/system.h ****         void Defaults()
+  36:lib/libDaisy/src/sys/system.h ****         {
+  37:lib/libDaisy/src/sys/system.h ****             cpu_freq    = SysClkFreq::FREQ_400MHZ;
+  38:lib/libDaisy/src/sys/system.h ****             use_dcache  = true;
+  39:lib/libDaisy/src/sys/system.h ****             use_icache  = true;
+  40:lib/libDaisy/src/sys/system.h ****             skip_clocks = false;
+  41:lib/libDaisy/src/sys/system.h ****         }
+  42:lib/libDaisy/src/sys/system.h **** 
+  43:lib/libDaisy/src/sys/system.h ****         /** Method to call on the struct to set to boost mode:
+  44:lib/libDaisy/src/sys/system.h ****          ** CPU Freq set to 480MHz
+  45:lib/libDaisy/src/sys/system.h ****          ** Cache Enabled 
+  46:lib/libDaisy/src/sys/system.h ****          ** */
+  47:lib/libDaisy/src/sys/system.h ****         void Boost()
+  48:lib/libDaisy/src/sys/system.h ****         {
+  49:lib/libDaisy/src/sys/system.h ****             cpu_freq    = SysClkFreq::FREQ_480MHZ;
+  50:lib/libDaisy/src/sys/system.h ****             use_dcache  = true;
+  51:lib/libDaisy/src/sys/system.h ****             use_icache  = true;
+  52:lib/libDaisy/src/sys/system.h ****             skip_clocks = false;
+  53:lib/libDaisy/src/sys/system.h ****         }
+  54:lib/libDaisy/src/sys/system.h **** 
+  55:lib/libDaisy/src/sys/system.h ****         SysClkFreq cpu_freq;
+  56:lib/libDaisy/src/sys/system.h ****         bool       use_dcache;
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 3
+
+
+  57:lib/libDaisy/src/sys/system.h ****         bool       use_icache;
+  58:lib/libDaisy/src/sys/system.h ****         bool       skip_clocks;
+  59:lib/libDaisy/src/sys/system.h ****     };
+  60:lib/libDaisy/src/sys/system.h **** 
+  61:lib/libDaisy/src/sys/system.h ****     /** Describes the different regions of memory available to the Daisy
+  62:lib/libDaisy/src/sys/system.h ****      * 
+  63:lib/libDaisy/src/sys/system.h ****      */
+  64:lib/libDaisy/src/sys/system.h ****     enum MemoryRegion
+  65:lib/libDaisy/src/sys/system.h ****     {
+  66:lib/libDaisy/src/sys/system.h ****         INTERNAL_FLASH = 0,
+  67:lib/libDaisy/src/sys/system.h ****         ITCMRAM,
+  68:lib/libDaisy/src/sys/system.h ****         DTCMRAM,
+  69:lib/libDaisy/src/sys/system.h ****         SRAM_D1,
+  70:lib/libDaisy/src/sys/system.h ****         SRAM_D2,
+  71:lib/libDaisy/src/sys/system.h ****         SRAM_D3,
+  72:lib/libDaisy/src/sys/system.h ****         SDRAM,
+  73:lib/libDaisy/src/sys/system.h ****         QSPI,
+  74:lib/libDaisy/src/sys/system.h ****         INVALID_ADDRESS,
+  75:lib/libDaisy/src/sys/system.h ****     };
+  76:lib/libDaisy/src/sys/system.h **** 
+  77:lib/libDaisy/src/sys/system.h ****     System() {}
+  78:lib/libDaisy/src/sys/system.h ****     ~System() {}
+  38              		.loc 2 78 5 view .LVU1
+  39              		.loc 2 78 5 is_stmt 0 view .LVU2
+  40              	.LBE113:
+  41              	.LBB114:
+  42              	.LBI114:
+  43              		.file 3 "lib/libDaisy/src/hid/usb.h"
+   1:lib/libDaisy/src/hid/usb.h **** #pragma once
+   2:lib/libDaisy/src/hid/usb.h **** #ifndef DSY_HID_USB_H
+   3:lib/libDaisy/src/hid/usb.h **** #define DSY_HID_USB_H
+   4:lib/libDaisy/src/hid/usb.h **** #include <stdint.h>
+   5:lib/libDaisy/src/hid/usb.h **** #include <stdlib.h>
+   6:lib/libDaisy/src/hid/usb.h **** 
+   7:lib/libDaisy/src/hid/usb.h **** namespace daisy
+   8:lib/libDaisy/src/hid/usb.h **** /** @addtogroup human_interface
+   9:lib/libDaisy/src/hid/usb.h ****     @{
+  10:lib/libDaisy/src/hid/usb.h **** */
+  11:lib/libDaisy/src/hid/usb.h **** 
+  12:lib/libDaisy/src/hid/usb.h **** {
+  13:lib/libDaisy/src/hid/usb.h **** /** 
+  14:lib/libDaisy/src/hid/usb.h ****     @brief Interface for initializing and using the USB Peripherals on the daisy
+  15:lib/libDaisy/src/hid/usb.h ****     @author Stephen Hensley
+  16:lib/libDaisy/src/hid/usb.h ****     @date December 2019
+  17:lib/libDaisy/src/hid/usb.h **** */
+  18:lib/libDaisy/src/hid/usb.h **** class UsbHandle
+  19:lib/libDaisy/src/hid/usb.h **** {
+  20:lib/libDaisy/src/hid/usb.h ****   public:
+  21:lib/libDaisy/src/hid/usb.h ****     /** Return values for USBHandle Functions */
+  22:lib/libDaisy/src/hid/usb.h ****     enum class Result
+  23:lib/libDaisy/src/hid/usb.h ****     {
+  24:lib/libDaisy/src/hid/usb.h ****         OK,
+  25:lib/libDaisy/src/hid/usb.h ****         ERR,
+  26:lib/libDaisy/src/hid/usb.h ****     };
+  27:lib/libDaisy/src/hid/usb.h **** 
+  28:lib/libDaisy/src/hid/usb.h ****     /** Specified which of the two USB Peripherals to initialize. */
+  29:lib/libDaisy/src/hid/usb.h ****     enum UsbPeriph
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 4
+
+
+  30:lib/libDaisy/src/hid/usb.h ****     {
+  31:lib/libDaisy/src/hid/usb.h ****         FS_INTERNAL, /**< Internal pin */
+  32:lib/libDaisy/src/hid/usb.h ****         FS_EXTERNAL, /**< FS External D+ pin is Pin 38 (GPIO32). FS External D- pin is Pin 37 (GPIO
+  33:lib/libDaisy/src/hid/usb.h ****         FS_BOTH,     /**< Both */
+  34:lib/libDaisy/src/hid/usb.h ****     };
+  35:lib/libDaisy/src/hid/usb.h **** 
+  36:lib/libDaisy/src/hid/usb.h **** 
+  37:lib/libDaisy/src/hid/usb.h ****     /** Function called upon reception of a buffer */
+  38:lib/libDaisy/src/hid/usb.h ****     typedef void (*ReceiveCallback)(uint8_t* buff, uint32_t* len);
+  39:lib/libDaisy/src/hid/usb.h **** 
+  40:lib/libDaisy/src/hid/usb.h ****     UsbHandle() {}
+  41:lib/libDaisy/src/hid/usb.h **** 
+  42:lib/libDaisy/src/hid/usb.h ****     ~UsbHandle() {}
+  44              		.loc 3 42 5 is_stmt 1 view .LVU3
+  45              		.loc 3 42 5 is_stmt 0 view .LVU4
+  46              	.LBE114:
+  47              	.LBB115:
+  48              	.LBI115:
+  49              		.file 4 "lib/libDaisy/src/per/adc.h"
+   1:lib/libDaisy/src/per/adc.h **** #pragma once
+   2:lib/libDaisy/src/per/adc.h **** #ifndef DSY_ADC_H
+   3:lib/libDaisy/src/per/adc.h **** #define DSY_ADC_H /**< Macro */
+   4:lib/libDaisy/src/per/adc.h **** #include <stdint.h>
+   5:lib/libDaisy/src/per/adc.h **** #include <stdlib.h>
+   6:lib/libDaisy/src/per/adc.h **** #include "daisy_core.h"
+   7:lib/libDaisy/src/per/adc.h **** #include "per/gpio.h"
+   8:lib/libDaisy/src/per/adc.h **** 
+   9:lib/libDaisy/src/per/adc.h **** #define DSY_ADC_MAX_CHANNELS 16 /**< Maximum number of ADC channels */
+  10:lib/libDaisy/src/per/adc.h **** 
+  11:lib/libDaisy/src/per/adc.h **** namespace daisy
+  12:lib/libDaisy/src/per/adc.h **** {
+  13:lib/libDaisy/src/per/adc.h **** /** @addtogroup per_analog
+  14:lib/libDaisy/src/per/adc.h ****     @{
+  15:lib/libDaisy/src/per/adc.h **** */
+  16:lib/libDaisy/src/per/adc.h **** 
+  17:lib/libDaisy/src/per/adc.h **** /* While there may not be many configuration options here,
+  18:lib/libDaisy/src/per/adc.h **** using a struct like this allows us to add more configuration
+  19:lib/libDaisy/src/per/adc.h **** later without breaking existing functionality.
+  20:lib/libDaisy/src/per/adc.h **** */
+  21:lib/libDaisy/src/per/adc.h **** 
+  22:lib/libDaisy/src/per/adc.h **** /** @brief   Configuration Structure for an ADC Channel 
+  23:lib/libDaisy/src/per/adc.h ****  *  @details This can be used to configure a a single input, 
+  24:lib/libDaisy/src/per/adc.h ****  *           or a multiplexed input, allowing up to 8 inputs on 
+  25:lib/libDaisy/src/per/adc.h ****  *           one channel.
+  26:lib/libDaisy/src/per/adc.h ****  *  @note    Sharing data lines to multiple muxes _is_ possible, but
+  27:lib/libDaisy/src/per/adc.h ****  *           each channel sharing data lines must be set to the maximum
+  28:lib/libDaisy/src/per/adc.h ****  *           number of channels, even if some multiplexers have fewer
+  29:lib/libDaisy/src/per/adc.h ****  *           inputs connected.
+  30:lib/libDaisy/src/per/adc.h **** */
+  31:lib/libDaisy/src/per/adc.h **** struct AdcChannelConfig
+  32:lib/libDaisy/src/per/adc.h **** {
+  33:lib/libDaisy/src/per/adc.h ****     /** Which pin to use for multiplexing */
+  34:lib/libDaisy/src/per/adc.h ****     enum MuxPin
+  35:lib/libDaisy/src/per/adc.h ****     {
+  36:lib/libDaisy/src/per/adc.h ****         MUX_SEL_0,    /**< & */
+  37:lib/libDaisy/src/per/adc.h ****         MUX_SEL_1,    /**< & */
+  38:lib/libDaisy/src/per/adc.h ****         MUX_SEL_2,    /**< & */
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 5
+
+
+  39:lib/libDaisy/src/per/adc.h ****         MUX_SEL_LAST, /**< & */
+  40:lib/libDaisy/src/per/adc.h ****     };
+  41:lib/libDaisy/src/per/adc.h **** 
+  42:lib/libDaisy/src/per/adc.h ****     /** Initializes a single ADC pin as an ADC. 
+  43:lib/libDaisy/src/per/adc.h ****     \param pin Pin to init.
+  44:lib/libDaisy/src/per/adc.h ****      */
+  45:lib/libDaisy/src/per/adc.h ****     void InitSingle(dsy_gpio_pin pin);
+  46:lib/libDaisy/src/per/adc.h **** 
+  47:lib/libDaisy/src/per/adc.h ****     /** 
+  48:lib/libDaisy/src/per/adc.h ****     Initializes a single ADC pin as a Multiplexed ADC.
+  49:lib/libDaisy/src/per/adc.h ****     Requires a CD405X Multiplexer connected to the pin.
+  50:lib/libDaisy/src/per/adc.h ****     You only need to supply the mux pins that are required,
+  51:lib/libDaisy/src/per/adc.h ****     e.g. a 4052 mux would only require mux_0 and mux_1.
+  52:lib/libDaisy/src/per/adc.h ****     Internal Callbacks handle the pin addressing.
+  53:lib/libDaisy/src/per/adc.h ****     \param mux_channels must be 1-8
+  54:lib/libDaisy/src/per/adc.h ****     \param mux_0 First mux pin
+  55:lib/libDaisy/src/per/adc.h ****     \param mux_1 Second mux pin
+  56:lib/libDaisy/src/per/adc.h ****     \param mux_2 Third mux pin
+  57:lib/libDaisy/src/per/adc.h ****     \param adc_pin &
+  58:lib/libDaisy/src/per/adc.h ****     */
+  59:lib/libDaisy/src/per/adc.h ****     void InitMux(dsy_gpio_pin adc_pin,
+  60:lib/libDaisy/src/per/adc.h ****                  size_t       mux_channels,
+  61:lib/libDaisy/src/per/adc.h ****                  dsy_gpio_pin mux_0,
+  62:lib/libDaisy/src/per/adc.h ****                  dsy_gpio_pin mux_1 = {DSY_GPIOX, 0},
+  63:lib/libDaisy/src/per/adc.h ****                  dsy_gpio_pin mux_2 = {DSY_GPIOX, 0});
+  64:lib/libDaisy/src/per/adc.h **** 
+  65:lib/libDaisy/src/per/adc.h ****     dsy_gpio pin_;                   /**< & */
+  66:lib/libDaisy/src/per/adc.h ****     dsy_gpio mux_pin_[MUX_SEL_LAST]; /**< & */
+  67:lib/libDaisy/src/per/adc.h ****     uint8_t  mux_channels_;          /**< & */
+  68:lib/libDaisy/src/per/adc.h **** };
+  69:lib/libDaisy/src/per/adc.h **** 
+  70:lib/libDaisy/src/per/adc.h **** /**
+  71:lib/libDaisy/src/per/adc.h ****    @brief Handler for analog to digital conversion
+  72:lib/libDaisy/src/per/adc.h **** */
+  73:lib/libDaisy/src/per/adc.h **** class AdcHandle
+  74:lib/libDaisy/src/per/adc.h **** {
+  75:lib/libDaisy/src/per/adc.h ****   public:
+  76:lib/libDaisy/src/per/adc.h ****     /** Supported oversampling amounts */
+  77:lib/libDaisy/src/per/adc.h ****     enum OverSampling
+  78:lib/libDaisy/src/per/adc.h ****     {
+  79:lib/libDaisy/src/per/adc.h ****         OVS_NONE, /**< & */
+  80:lib/libDaisy/src/per/adc.h ****         OVS_4,    /**< & */
+  81:lib/libDaisy/src/per/adc.h ****         OVS_8,    /**< & */
+  82:lib/libDaisy/src/per/adc.h ****         OVS_16,   /**< & */
+  83:lib/libDaisy/src/per/adc.h ****         OVS_32,   /**< & */
+  84:lib/libDaisy/src/per/adc.h ****         OVS_64,   /**< & */
+  85:lib/libDaisy/src/per/adc.h ****         OVS_128,  /**< & */
+  86:lib/libDaisy/src/per/adc.h ****         OVS_256,  /**< & */
+  87:lib/libDaisy/src/per/adc.h ****         OVS_512,  /**< & */
+  88:lib/libDaisy/src/per/adc.h ****         OVS_1024, /**< & */
+  89:lib/libDaisy/src/per/adc.h ****         OVS_LAST, /**< & */
+  90:lib/libDaisy/src/per/adc.h ****     };
+  91:lib/libDaisy/src/per/adc.h **** 
+  92:lib/libDaisy/src/per/adc.h ****     AdcHandle() {}
+  93:lib/libDaisy/src/per/adc.h ****     ~AdcHandle() {}
+  50              		.loc 4 93 5 is_stmt 1 view .LVU5
+  51              		.loc 4 93 5 is_stmt 0 view .LVU6
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 6
+
+
+  52              	.LBE115:
+  53              	.LBB116:
+  54              	.LBI116:
+  55              		.file 5 "lib/libDaisy/src/hid/audio.h"
+   1:lib/libDaisy/src/hid/audio.h **** #ifndef DSY_AUDIO_H
+   2:lib/libDaisy/src/hid/audio.h **** #define DSY_AUDIO_H /**< & */
+   3:lib/libDaisy/src/hid/audio.h **** 
+   4:lib/libDaisy/src/hid/audio.h **** #include "per/sai.h"
+   5:lib/libDaisy/src/hid/audio.h **** 
+   6:lib/libDaisy/src/hid/audio.h **** namespace daisy
+   7:lib/libDaisy/src/hid/audio.h **** {
+   8:lib/libDaisy/src/hid/audio.h **** /** @brief Audio Engine Handle
+   9:lib/libDaisy/src/hid/audio.h ****  *  @ingroup audio 
+  10:lib/libDaisy/src/hid/audio.h ****  *  @details This class allows for higher level access to an audio engine.
+  11:lib/libDaisy/src/hid/audio.h ****  *           If you're using a SOM like the DaisySeed or DaisyPatchSM (or any 
+  12:lib/libDaisy/src/hid/audio.h ****  *            board that includes one of those objects) then the intialization
+  13:lib/libDaisy/src/hid/audio.h ****  *            is already taken  care of.
+  14:lib/libDaisy/src/hid/audio.h ****  *           If you're setting up your own custom hardware, or need to make changes
+  15:lib/libDaisy/src/hid/audio.h ****  *           you will have to take the following steps:
+  16:lib/libDaisy/src/hid/audio.h ****  *             1. Create and Initialize an SaiHandle or two depending on your requirements
+  17:lib/libDaisy/src/hid/audio.h ****  *             2. Initialize the Audio Handle with the desired settings and the Initialized SaiHand
+  18:lib/libDaisy/src/hid/audio.h ****  *             3. If the connected codec requires special configuration or initialization, do so
+  19:lib/libDaisy/src/hid/audio.h ****  *             4. Write a callback method using either the AudioCallback or the InterleavingAudioCa
+  20:lib/libDaisy/src/hid/audio.h ****  *             5. Start the Audio using one of the StartAudio function
+  21:lib/libDaisy/src/hid/audio.h ****  */
+  22:lib/libDaisy/src/hid/audio.h **** class AudioHandle
+  23:lib/libDaisy/src/hid/audio.h **** {
+  24:lib/libDaisy/src/hid/audio.h ****   public:
+  25:lib/libDaisy/src/hid/audio.h ****     /** Manually configurable details about the Audio Engine */
+  26:lib/libDaisy/src/hid/audio.h ****     /** TODO: Figure out how to get samplerate in here. */
+  27:lib/libDaisy/src/hid/audio.h ****     struct Config
+  28:lib/libDaisy/src/hid/audio.h ****     {
+  29:lib/libDaisy/src/hid/audio.h ****         /** number of samples to process per callback */
+  30:lib/libDaisy/src/hid/audio.h ****         size_t blocksize;
+  31:lib/libDaisy/src/hid/audio.h **** 
+  32:lib/libDaisy/src/hid/audio.h ****         /**< Sample rate of audio */
+  33:lib/libDaisy/src/hid/audio.h ****         SaiHandle::Config::SampleRate samplerate;
+  34:lib/libDaisy/src/hid/audio.h **** 
+  35:lib/libDaisy/src/hid/audio.h ****         /** factor for adjustment before and after callback for hardware that may have extra headro
+  36:lib/libDaisy/src/hid/audio.h ****         float postgain;
+  37:lib/libDaisy/src/hid/audio.h **** 
+  38:lib/libDaisy/src/hid/audio.h ****         /** factor for additional one-sided compensation to audio path for hardware that may
+  39:lib/libDaisy/src/hid/audio.h ****          *  have unequal input/output ranges
+  40:lib/libDaisy/src/hid/audio.h ****          */
+  41:lib/libDaisy/src/hid/audio.h ****         float output_compensation;
+  42:lib/libDaisy/src/hid/audio.h **** 
+  43:lib/libDaisy/src/hid/audio.h ****         /** Sets default values for config struct */
+  44:lib/libDaisy/src/hid/audio.h ****         Config()
+  45:lib/libDaisy/src/hid/audio.h ****         : blocksize(48),
+  46:lib/libDaisy/src/hid/audio.h ****           samplerate(SaiHandle::Config::SampleRate::SAI_48KHZ),
+  47:lib/libDaisy/src/hid/audio.h ****           postgain(1.f),
+  48:lib/libDaisy/src/hid/audio.h ****           output_compensation(1.f)
+  49:lib/libDaisy/src/hid/audio.h ****         {
+  50:lib/libDaisy/src/hid/audio.h ****         }
+  51:lib/libDaisy/src/hid/audio.h ****     };
+  52:lib/libDaisy/src/hid/audio.h **** 
+  53:lib/libDaisy/src/hid/audio.h ****     enum class Result
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 7
+
+
+  54:lib/libDaisy/src/hid/audio.h ****     {
+  55:lib/libDaisy/src/hid/audio.h ****         OK,
+  56:lib/libDaisy/src/hid/audio.h ****         ERR,
+  57:lib/libDaisy/src/hid/audio.h ****     };
+  58:lib/libDaisy/src/hid/audio.h **** 
+  59:lib/libDaisy/src/hid/audio.h ****     /** Non-Interleaving input buffer
+  60:lib/libDaisy/src/hid/audio.h ****      * Buffer arranged by float[chn][sample] 
+  61:lib/libDaisy/src/hid/audio.h ****      * const so that the user can't modify the input
+  62:lib/libDaisy/src/hid/audio.h ****      */
+  63:lib/libDaisy/src/hid/audio.h ****     typedef const float* const* InputBuffer;
+  64:lib/libDaisy/src/hid/audio.h **** 
+  65:lib/libDaisy/src/hid/audio.h ****     /** Non-Interleaving output buffer
+  66:lib/libDaisy/src/hid/audio.h ****      * Arranged by float[chn][sample] 
+  67:lib/libDaisy/src/hid/audio.h ****      */
+  68:lib/libDaisy/src/hid/audio.h ****     typedef float** OutputBuffer;
+  69:lib/libDaisy/src/hid/audio.h **** 
+  70:lib/libDaisy/src/hid/audio.h ****     /** Type for a Non-Interleaving audio callback 
+  71:lib/libDaisy/src/hid/audio.h ****      * Non-Interleaving audio callbacks in daisy will be of this type
+  72:lib/libDaisy/src/hid/audio.h ****      */
+  73:lib/libDaisy/src/hid/audio.h ****     typedef void (*AudioCallback)(InputBuffer  in,
+  74:lib/libDaisy/src/hid/audio.h ****                                   OutputBuffer out,
+  75:lib/libDaisy/src/hid/audio.h ****                                   size_t       size);
+  76:lib/libDaisy/src/hid/audio.h **** 
+  77:lib/libDaisy/src/hid/audio.h ****     /** Interleaving Input buffer
+  78:lib/libDaisy/src/hid/audio.h ****      ** audio is prepared as { L0, R0, L1, R1, . . . LN, RN }]
+  79:lib/libDaisy/src/hid/audio.h ****      ** this is const, as the user shouldn't modify it
+  80:lib/libDaisy/src/hid/audio.h ****     */
+  81:lib/libDaisy/src/hid/audio.h ****     typedef const float* InterleavingInputBuffer;
+  82:lib/libDaisy/src/hid/audio.h **** 
+  83:lib/libDaisy/src/hid/audio.h ****     /** Interleaving Output buffer 
+  84:lib/libDaisy/src/hid/audio.h ****      ** audio is prepared as { L0, R0, L1, R1, . . . LN, RN }
+  85:lib/libDaisy/src/hid/audio.h ****     */
+  86:lib/libDaisy/src/hid/audio.h ****     typedef float* InterleavingOutputBuffer;
+  87:lib/libDaisy/src/hid/audio.h **** 
+  88:lib/libDaisy/src/hid/audio.h ****     /** Interleaving Audio Callback 
+  89:lib/libDaisy/src/hid/audio.h ****      * Interleaving audio callbacks in daisy must be of this type
+  90:lib/libDaisy/src/hid/audio.h ****      */
+  91:lib/libDaisy/src/hid/audio.h ****     typedef void (*InterleavingAudioCallback)(InterleavingInputBuffer  in,
+  92:lib/libDaisy/src/hid/audio.h ****                                               InterleavingOutputBuffer out,
+  93:lib/libDaisy/src/hid/audio.h ****                                               size_t                   size);
+  94:lib/libDaisy/src/hid/audio.h **** 
+  95:lib/libDaisy/src/hid/audio.h ****     AudioHandle() : pimpl_(nullptr) {}
+  96:lib/libDaisy/src/hid/audio.h ****     ~AudioHandle() {}
+  56              		.loc 5 96 5 is_stmt 1 view .LVU7
+  57              		.loc 5 96 5 is_stmt 0 view .LVU8
+  58              	.LBE116:
+  59              		.loc 1 22 19 view .LVU9
+  60 0000 7047     		bx	lr
+  61              		.cfi_endproc
+  62              	.LFE2529:
+  64              		.weak	_ZN5daisy9DaisySeedD1Ev
+  65              		.thumb_set _ZN5daisy9DaisySeedD1Ev,_ZN5daisy9DaisySeedD2Ev
+  66 0002 00BF     		.section	.text._ZN7daisysp6ChorusD2Ev,"axG",%progbits,_ZN7daisysp6ChorusD5Ev,comdat
+  67              		.align	1
+  68              		.p2align 2,,3
+  69              		.weak	_ZN7daisysp6ChorusD2Ev
+  70              		.syntax unified
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 8
+
+
+  71              		.thumb
+  72              		.thumb_func
+  74              	_ZN7daisysp6ChorusD2Ev:
+  75              	.LVL1:
+  76              	.LFB4397:
+  77              		.file 6 "lib/DaisySP/Source/Effects/chorus.h"
+   1:lib/DaisySP/Source/Effects/chorus.h **** #pragma once
+   2:lib/DaisySP/Source/Effects/chorus.h **** #ifndef DSY_CHORUS_H
+   3:lib/DaisySP/Source/Effects/chorus.h **** #define DSY_CHORUS_H
+   4:lib/DaisySP/Source/Effects/chorus.h **** #ifdef __cplusplus
+   5:lib/DaisySP/Source/Effects/chorus.h **** 
+   6:lib/DaisySP/Source/Effects/chorus.h **** #include <stdint.h>
+   7:lib/DaisySP/Source/Effects/chorus.h **** #include "Utility/delayline.h"
+   8:lib/DaisySP/Source/Effects/chorus.h **** 
+   9:lib/DaisySP/Source/Effects/chorus.h **** /** @file chorus.h */
+  10:lib/DaisySP/Source/Effects/chorus.h **** 
+  11:lib/DaisySP/Source/Effects/chorus.h **** namespace daisysp
+  12:lib/DaisySP/Source/Effects/chorus.h **** {
+  13:lib/DaisySP/Source/Effects/chorus.h **** /**  
+  14:lib/DaisySP/Source/Effects/chorus.h ****     @brief Single Chorus engine. Used in Chorus.
+  15:lib/DaisySP/Source/Effects/chorus.h ****     @author Ben Sergentanis
+  16:lib/DaisySP/Source/Effects/chorus.h **** */
+  17:lib/DaisySP/Source/Effects/chorus.h **** class ChorusEngine
+  18:lib/DaisySP/Source/Effects/chorus.h **** {
+  19:lib/DaisySP/Source/Effects/chorus.h ****   public:
+  20:lib/DaisySP/Source/Effects/chorus.h ****     ChorusEngine() {}
+  21:lib/DaisySP/Source/Effects/chorus.h ****     ~ChorusEngine() {}
+  22:lib/DaisySP/Source/Effects/chorus.h **** 
+  23:lib/DaisySP/Source/Effects/chorus.h ****     /** Initialize the module
+  24:lib/DaisySP/Source/Effects/chorus.h ****         \param sample_rate Audio engine sample rate.
+  25:lib/DaisySP/Source/Effects/chorus.h ****     */
+  26:lib/DaisySP/Source/Effects/chorus.h ****     void Init(float sample_rate);
+  27:lib/DaisySP/Source/Effects/chorus.h **** 
+  28:lib/DaisySP/Source/Effects/chorus.h ****     /** Get the next sample
+  29:lib/DaisySP/Source/Effects/chorus.h ****         \param in Sample to process
+  30:lib/DaisySP/Source/Effects/chorus.h ****     */
+  31:lib/DaisySP/Source/Effects/chorus.h ****     float Process(float in);
+  32:lib/DaisySP/Source/Effects/chorus.h **** 
+  33:lib/DaisySP/Source/Effects/chorus.h ****     /** How much to modulate the delay by.
+  34:lib/DaisySP/Source/Effects/chorus.h ****         \param depth Works 0-1.
+  35:lib/DaisySP/Source/Effects/chorus.h ****     */
+  36:lib/DaisySP/Source/Effects/chorus.h ****     void SetLfoDepth(float depth);
+  37:lib/DaisySP/Source/Effects/chorus.h **** 
+  38:lib/DaisySP/Source/Effects/chorus.h ****     /** Set lfo frequency.
+  39:lib/DaisySP/Source/Effects/chorus.h ****         \param freq Frequency in Hz
+  40:lib/DaisySP/Source/Effects/chorus.h ****     */
+  41:lib/DaisySP/Source/Effects/chorus.h ****     void SetLfoFreq(float freq);
+  42:lib/DaisySP/Source/Effects/chorus.h **** 
+  43:lib/DaisySP/Source/Effects/chorus.h ****     /** Set the internal delay rate. 
+  44:lib/DaisySP/Source/Effects/chorus.h ****         \param delay Tuned for 0-1. Maps to .1 to 50 ms.
+  45:lib/DaisySP/Source/Effects/chorus.h ****     */
+  46:lib/DaisySP/Source/Effects/chorus.h ****     void SetDelay(float delay);
+  47:lib/DaisySP/Source/Effects/chorus.h **** 
+  48:lib/DaisySP/Source/Effects/chorus.h ****     /** Set the delay time in ms.
+  49:lib/DaisySP/Source/Effects/chorus.h ****         \param ms Delay time in ms, 0 to 50 ms.
+  50:lib/DaisySP/Source/Effects/chorus.h ****     */
+  51:lib/DaisySP/Source/Effects/chorus.h ****     void SetDelayMs(float ms);
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 9
+
+
+  52:lib/DaisySP/Source/Effects/chorus.h **** 
+  53:lib/DaisySP/Source/Effects/chorus.h ****     /** Set the feedback amount.
+  54:lib/DaisySP/Source/Effects/chorus.h ****         \param feedback Amount from 0-1.
+  55:lib/DaisySP/Source/Effects/chorus.h ****     */
+  56:lib/DaisySP/Source/Effects/chorus.h ****     void SetFeedback(float feedback);
+  57:lib/DaisySP/Source/Effects/chorus.h **** 
+  58:lib/DaisySP/Source/Effects/chorus.h ****   private:
+  59:lib/DaisySP/Source/Effects/chorus.h ****     float                    sample_rate_;
+  60:lib/DaisySP/Source/Effects/chorus.h ****     static constexpr int32_t kDelayLength
+  61:lib/DaisySP/Source/Effects/chorus.h ****         = 2400; // 50 ms at 48kHz = .05 * 48000
+  62:lib/DaisySP/Source/Effects/chorus.h **** 
+  63:lib/DaisySP/Source/Effects/chorus.h ****     //triangle lfos
+  64:lib/DaisySP/Source/Effects/chorus.h ****     float lfo_phase_;
+  65:lib/DaisySP/Source/Effects/chorus.h ****     float lfo_freq_;
+  66:lib/DaisySP/Source/Effects/chorus.h ****     float lfo_amp_;
+  67:lib/DaisySP/Source/Effects/chorus.h **** 
+  68:lib/DaisySP/Source/Effects/chorus.h ****     float feedback_;
+  69:lib/DaisySP/Source/Effects/chorus.h **** 
+  70:lib/DaisySP/Source/Effects/chorus.h ****     float delay_;
+  71:lib/DaisySP/Source/Effects/chorus.h **** 
+  72:lib/DaisySP/Source/Effects/chorus.h ****     DelayLine<float, kDelayLength> del_;
+  73:lib/DaisySP/Source/Effects/chorus.h **** 
+  74:lib/DaisySP/Source/Effects/chorus.h ****     float ProcessLfo();
+  75:lib/DaisySP/Source/Effects/chorus.h **** };
+  76:lib/DaisySP/Source/Effects/chorus.h **** 
+  77:lib/DaisySP/Source/Effects/chorus.h **** //wraps up all of the chorus engines
+  78:lib/DaisySP/Source/Effects/chorus.h **** /**  
+  79:lib/DaisySP/Source/Effects/chorus.h ****     @brief Chorus Effect.
+  80:lib/DaisySP/Source/Effects/chorus.h ****     @author Ben Sergentanis
+  81:lib/DaisySP/Source/Effects/chorus.h ****     @date Jan 2021
+  82:lib/DaisySP/Source/Effects/chorus.h ****     Based on https://www.izotope.com/en/learn/understanding-chorus-flangers-and-phasers-in-audio-pr
+  83:lib/DaisySP/Source/Effects/chorus.h ****     and https://www.researchgate.net/publication/236629475_Implementing_Professional_Audio_Effects_
+  84:lib/DaisySP/Source/Effects/chorus.h **** */
+  85:lib/DaisySP/Source/Effects/chorus.h **** class Chorus
+  86:lib/DaisySP/Source/Effects/chorus.h **** {
+  87:lib/DaisySP/Source/Effects/chorus.h ****   public:
+  88:lib/DaisySP/Source/Effects/chorus.h ****     Chorus() {}
+  89:lib/DaisySP/Source/Effects/chorus.h ****     ~Chorus() {}
+  78              		.loc 6 89 5 is_stmt 1 view -0
+  79              		.cfi_startproc
+  80              		@ args = 0, pretend = 0, frame = 0
+  81              		@ frame_needed = 0, uses_anonymous_args = 0
+  82              		@ link register save eliminated.
+  83              		.loc 6 89 16 is_stmt 0 view .LVU11
+  84 0000 7047     		bx	lr
+  85              		.cfi_endproc
+  86              	.LFE4397:
+  88              		.weak	_ZN7daisysp6ChorusD1Ev
+  89              		.thumb_set _ZN7daisysp6ChorusD1Ev,_ZN7daisysp6ChorusD2Ev
+  90 0002 00BF     		.section	.text._ZN7daisysp9OverdriveD2Ev,"axG",%progbits,_ZN7daisysp9OverdriveD5Ev,comdat
+  91              		.align	1
+  92              		.p2align 2,,3
+  93              		.weak	_ZN7daisysp9OverdriveD2Ev
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  98              	_ZN7daisysp9OverdriveD2Ev:
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 10
+
+
+  99              	.LVL2:
+ 100              	.LFB4421:
+ 101              		.file 7 "lib/DaisySP/Source/Effects/overdrive.h"
+   1:lib/DaisySP/Source/Effects/overdrive.h **** #pragma once
+   2:lib/DaisySP/Source/Effects/overdrive.h **** #ifndef DSY_OVERDRIVE_H
+   3:lib/DaisySP/Source/Effects/overdrive.h **** #define DSY_OVERDRIVE_H
+   4:lib/DaisySP/Source/Effects/overdrive.h **** 
+   5:lib/DaisySP/Source/Effects/overdrive.h **** #include <stdint.h>
+   6:lib/DaisySP/Source/Effects/overdrive.h **** #ifdef __cplusplus
+   7:lib/DaisySP/Source/Effects/overdrive.h **** 
+   8:lib/DaisySP/Source/Effects/overdrive.h **** /** @file overdrive.h */
+   9:lib/DaisySP/Source/Effects/overdrive.h **** 
+  10:lib/DaisySP/Source/Effects/overdrive.h **** namespace daisysp
+  11:lib/DaisySP/Source/Effects/overdrive.h **** {
+  12:lib/DaisySP/Source/Effects/overdrive.h **** /**  
+  13:lib/DaisySP/Source/Effects/overdrive.h ****        @brief Distortion / Overdrive Module
+  14:lib/DaisySP/Source/Effects/overdrive.h ****        @author Ported by Ben Sergentanis 
+  15:lib/DaisySP/Source/Effects/overdrive.h ****        @date Jan 2021 
+  16:lib/DaisySP/Source/Effects/overdrive.h ****        Ported from pichenettes/eurorack/plaits/dsp/fx/overdrive.h \n
+  17:lib/DaisySP/Source/Effects/overdrive.h ****        to an independent module. \n
+  18:lib/DaisySP/Source/Effects/overdrive.h ****        Original code written by Emilie Gillet in 2014. \n
+  19:lib/DaisySP/Source/Effects/overdrive.h **** */
+  20:lib/DaisySP/Source/Effects/overdrive.h **** class Overdrive
+  21:lib/DaisySP/Source/Effects/overdrive.h **** {
+  22:lib/DaisySP/Source/Effects/overdrive.h ****   public:
+  23:lib/DaisySP/Source/Effects/overdrive.h ****     Overdrive() {}
+  24:lib/DaisySP/Source/Effects/overdrive.h ****     ~Overdrive() {}
+ 102              		.loc 7 24 5 is_stmt 1 view -0
+ 103              		.cfi_startproc
+ 104              		@ args = 0, pretend = 0, frame = 0
+ 105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106              		@ link register save eliminated.
+ 107              		.loc 7 24 19 is_stmt 0 view .LVU13
+ 108 0000 7047     		bx	lr
+ 109              		.cfi_endproc
+ 110              	.LFE4421:
+ 112              		.weak	_ZN7daisysp9OverdriveD1Ev
+ 113              		.thumb_set _ZN7daisysp9OverdriveD1Ev,_ZN7daisysp9OverdriveD2Ev
+ 114 0002 00BF     		.section	.text._Z13AudioCallbackPKfPfj,"ax",%progbits
+ 115              		.align	1
+ 116              		.p2align 2,,3
+ 117              		.global	_Z13AudioCallbackPKfPfj
+ 118              		.syntax unified
+ 119              		.thumb
+ 120              		.thumb_func
+ 122              	_Z13AudioCallbackPKfPfj:
+ 123              	.LVL3:
+ 124              	.LFB4801:
+ 125              		.file 8 "Main.cpp"
+   1:Main.cpp      **** #include "daisy_seed.h"
+   2:Main.cpp      **** #include "Filter.cpp"
+   3:Main.cpp      **** #include "daisysp.h"
+   4:Main.cpp      **** #include "FeedbackDelay.cpp"
+   5:Main.cpp      **** 
+   6:Main.cpp      **** using namespace daisy;
+   7:Main.cpp      **** 
+   8:Main.cpp      **** DaisySeed hardware;
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 11
+
+
+   9:Main.cpp      **** HighpassFilter hpFilter;
+  10:Main.cpp      **** LowpassFilter lpFilter;
+  11:Main.cpp      **** daisysp::Chorus chorus;
+  12:Main.cpp      **** daisysp::Overdrive dist;
+  13:Main.cpp      **** FeedbackDelay delay;
+  14:Main.cpp      **** 
+  15:Main.cpp      **** void AudioCallback(AudioHandle::InterleavingInputBuffer  in,
+  16:Main.cpp      ****                    AudioHandle::InterleavingOutputBuffer out,
+  17:Main.cpp      ****                    size_t                                size)
+  18:Main.cpp      **** {
+ 126              		.loc 8 18 1 is_stmt 1 view -0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 8
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+  19:Main.cpp      ****     for (size_t i = 0; i < size; i += 2)
+ 130              		.loc 8 19 5 view .LVU15
+ 131              	.LBB133:
+ 132              		.loc 8 19 26 view .LVU16
+ 133 0000 002A     		cmp	r2, #0
+ 134 0002 00F06081 		beq	.L17
+ 135 0006 013A     		subs	r2, r2, #1
+ 136              	.LVL4:
+ 137              		.loc 8 19 26 is_stmt 0 view .LVU17
+ 138              	.LBE133:
+  18:Main.cpp      ****     for (size_t i = 0; i < size; i += 2)
+ 139              		.loc 8 18 1 view .LVU18
+ 140 0008 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 141              		.cfi_def_cfa_offset 36
+ 142              		.cfi_offset 4, -36
+ 143              		.cfi_offset 5, -32
+ 144              		.cfi_offset 6, -28
+ 145              		.cfi_offset 7, -24
+ 146              		.cfi_offset 8, -20
+ 147              		.cfi_offset 9, -16
+ 148              		.cfi_offset 10, -12
+ 149              		.cfi_offset 11, -8
+ 150              		.cfi_offset 14, -4
+ 151 000c 5308     		lsrs	r3, r2, #1
+ 152 000e 8146     		mov	r9, r0
+ 153 0010 0E46     		mov	r6, r1
+ 154              	.LBB187:
+ 155              		.loc 8 19 26 view .LVU19
+ 156 0012 0027     		movs	r7, #0
+ 157 0014 B44D     		ldr	r5, .L22+32
+ 158 0016 B54C     		ldr	r4, .L22+36
+ 159 0018 DFF8E0A2 		ldr	r10, .L22+52
+ 160              	.LBE187:
+  18:Main.cpp      ****     for (size_t i = 0; i < size; i += 2)
+ 161              		.loc 8 18 1 view .LVU20
+ 162 001c 2DED048B 		vpush.64	{d8, d9}
+ 163              		.cfi_def_cfa_offset 52
+ 164              		.cfi_offset 80, -52
+ 165              		.cfi_offset 81, -48
+ 166              		.cfi_offset 82, -44
+ 167              		.cfi_offset 83, -40
+ 168 0020 83B0     		sub	sp, sp, #12
+ 169              		.cfi_def_cfa_offset 64
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 12
+
+
+ 170 0022 0193     		str	r3, [sp, #4]
+ 171 0024 C2E0     		b	.L11
+ 172              	.LVL5:
+ 173              	.L21:
+ 174              	.LBB188:
+ 175              	.LBB134:
+ 176              	.LBB135:
+ 177              	.LBB136:
+ 178              		.file 9 "Filter.cpp"
+   1:Filter.cpp    **** #include "math.h"
+   2:Filter.cpp    **** 
+   3:Filter.cpp    **** class HighpassFilter
+   4:Filter.cpp    **** {
+   5:Filter.cpp    **** public:
+   6:Filter.cpp    ****     void init(float samplerate, float cutoff, int bufferLength)
+   7:Filter.cpp    ****     {
+   8:Filter.cpp    ****         this->bufferLength = bufferLength;
+   9:Filter.cpp    ****         this->samplerate = samplerate;
+  10:Filter.cpp    ****         Fc = cutoff;
+  11:Filter.cpp    ****     }
+  12:Filter.cpp    **** 
+  13:Filter.cpp    ****     float processSample(float in)
+  14:Filter.cpp    ****     {
+  15:Filter.cpp    ****         float b_0, b_1, b_2, a_0, a_1, a_2;
+  16:Filter.cpp    ****         cirBuffIn[buffPos % 4] = in;
+  17:Filter.cpp    ****         float Q = 1.22;
+  18:Filter.cpp    ****         float w0 = 2.f * M_PI * (Fc / samplerate);
+  19:Filter.cpp    ****         float cosW0 =  cos(w0);
+  20:Filter.cpp    ****         float alph = (sin(w0)) / (2.f * Q);
+  21:Filter.cpp    **** 
+  22:Filter.cpp    ****         a_0 = 1 + alph;
+  23:Filter.cpp    ****         b_0 = ((float (1 + cosW0)) / 2.f) / a_0;
+  24:Filter.cpp    ****         b_1 = (-1.f * (1.f + cosW0)) / a_0;
+  25:Filter.cpp    ****         b_2 = ((1.f + cosW0) / 2.f) / a_0;
+  26:Filter.cpp    ****         a_1 = (-2 * cosW0) / a_0;
+  27:Filter.cpp    ****         a_2 = (1 - alph) / a_0;
+  28:Filter.cpp    **** 
+  29:Filter.cpp    ****         float n_1 = cirBuffIn[(4 + buffPos - 1) % 4];
+  30:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+  31:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+  32:Filter.cpp    ****         float yn_2 = cirBuffOut[(4 + buffPos - 2) % 4];
+  33:Filter.cpp    **** 
+  34:Filter.cpp    ****         float fltOut = in * b_0 + n_1 * b_1 + n_2 * b_2 - yn_1 * a_1 - yn_2 * a_2;
+  35:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+  36:Filter.cpp    ****         buffPos++;
+ 179              		.loc 9 36 16 view .LVU21
+ 180 0026 C5F820C0 		str	ip, [r5, #32]
+ 181              	.LVL6:
+ 182              	.L8:
+  37:Filter.cpp    ****         if(buffPos == 4) {
+  38:Filter.cpp    ****             buffPos = 0;
+  39:Filter.cpp    ****         }
+  40:Filter.cpp    ****         return fltOut;
+ 183              		.loc 9 40 9 is_stmt 1 view .LVU22
+ 184              		.loc 9 40 9 is_stmt 0 view .LVU23
+ 185              	.LBE136:
+ 186              	.LBE135:
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 13
+
+
+  20:Main.cpp      ****     {
+  21:Main.cpp      ****         float sample = in[i];
+  22:Main.cpp      ****         sample += in[i + 1];
+  23:Main.cpp      ****         sample /= 2;
+  24:Main.cpp      ****         sample = hpFilter.processSample(sample);
+  25:Main.cpp      ****         sample = lpFilter.processSample(sample);
+ 187              		.loc 8 25 9 is_stmt 1 view .LVU24
+ 188              	.LBB150:
+ 189              	.LBI150:
+  41:Filter.cpp    **** }
+  42:Filter.cpp    **** private:
+  43:Filter.cpp    ****     float cirBuffIn[4];
+  44:Filter.cpp    ****     float cirBuffOut[4];
+  45:Filter.cpp    ****     int buffPos = 0;
+  46:Filter.cpp    ****     int bufferLength;
+  47:Filter.cpp    ****     float samplerate;
+  48:Filter.cpp    ****     float Fc;
+  49:Filter.cpp    **** };
+  50:Filter.cpp    **** 
+  51:Filter.cpp    **** class LowpassFilter
+  52:Filter.cpp    **** {
+  53:Filter.cpp    **** public:
+  54:Filter.cpp    ****     void init(float samplerate, float cutoff, int bufferLength)
+  55:Filter.cpp    ****     {
+  56:Filter.cpp    ****         this->bufferLength = bufferLength;
+  57:Filter.cpp    ****         this->samplerate = samplerate;
+  58:Filter.cpp    ****         Fc = cutoff;
+  59:Filter.cpp    ****     }
+  60:Filter.cpp    **** 
+  61:Filter.cpp    ****     float processSample(float in)
+ 190              		.loc 9 61 11 view .LVU25
+ 191              	.LBB151:
+  62:Filter.cpp    ****     {
+  63:Filter.cpp    ****         float b_0, b_1, b_2, a_0, a_1, a_2;
+ 192              		.loc 9 63 9 view .LVU26
+  64:Filter.cpp    ****         cirBuffIn[buffPos % 4] = in;
+ 193              		.loc 9 64 9 view .LVU27
+  65:Filter.cpp    ****         float Q = 1.22;
+  66:Filter.cpp    ****         float w0 = 2.f * M_PI * (Fc / samplerate);
+ 194              		.loc 9 66 37 is_stmt 0 view .LVU28
+ 195 002a 94ED0B6A 		vldr.32	s12, [r4, #44]
+ 196 002e D4ED0A6A 		vldr.32	s13, [r4, #40]
+  64:Filter.cpp    ****         cirBuffIn[buffPos % 4] = in;
+ 197              		.loc 9 64 19 view .LVU29
+ 198 0032 D4F820B0 		ldr	fp, [r4, #32]
+ 199              		.loc 9 66 37 view .LVU30
+ 200 0036 86EE260A 		vdiv.f32	s0, s12, s13
+  64:Filter.cpp    ****         cirBuffIn[buffPos % 4] = in;
+ 201              		.loc 9 64 27 view .LVU31
+ 202 003a DBF10003 		rsbs	r3, fp, #0
+ 203 003e 0BF00308 		and	r8, fp, #3
+ 204 0042 03F00303 		and	r3, r3, #3
+ 205 0046 58BF     		it	pl
+ 206 0048 C3F10008 		rsbpl	r8, r3, #0
+ 207              		.loc 9 66 31 view .LVU32
+ 208 004c 9FED9E7B 		vldr.64	d7, .L22
+  64:Filter.cpp    ****         cirBuffIn[buffPos % 4] = in;
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 14
+
+
+ 209              		.loc 9 64 32 view .LVU33
+ 210 0050 04EB8803 		add	r3, r4, r8, lsl #2
+ 211 0054 83ED008A 		vstr.32	s16, [r3]
+  65:Filter.cpp    ****         float Q = 1.22;
+ 212              		.loc 9 65 9 is_stmt 1 view .LVU34
+ 213              	.LVL7:
+ 214              		.loc 9 66 9 view .LVU35
+ 215              		.loc 9 66 37 is_stmt 0 view .LVU36
+ 216 0058 B7EEC00A 		vcvt.f64.f32	d0, s0
+ 217              		.loc 9 66 31 view .LVU37
+ 218 005c 20EE070B 		vmul.f64	d0, d0, d7
+ 219              		.loc 9 66 15 view .LVU38
+ 220 0060 F7EEC08B 		vcvt.f32.f64	s17, d0
+ 221              	.LVL8:
+  67:Filter.cpp    ****         float cosW0 =  cos(w0);
+ 222              		.loc 9 67 9 is_stmt 1 view .LVU39
+ 223              	.LBB152:
+ 224              	.LBI152:
+ 225              		.file 10 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath"
+   1:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // -*- C++ -*- C forwarding header.
+   2:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+   3:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // Copyright (C) 1997-2020 Free Software Foundation, Inc.
+   4:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** //
+   5:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // This file is part of the GNU ISO C++ Library.  This library is free
+   6:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // software; you can redistribute it and/or modify it under the
+   7:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // terms of the GNU General Public License as published by the
+   8:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // Free Software Foundation; either version 3, or (at your option)
+   9:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // any later version.
+  10:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  11:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // This library is distributed in the hope that it will be useful,
+  12:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // but WITHOUT ANY WARRANTY; without even the implied warranty of
+  13:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  14:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // GNU General Public License for more details.
+  15:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  16:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // Under Section 7 of GPL version 3, you are granted additional
+  17:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // permissions described in the GCC Runtime Library Exception, version
+  18:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // 3.1, as published by the Free Software Foundation.
+  19:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  20:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // You should have received a copy of the GNU General Public License and
+  21:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // a copy of the GCC Runtime Library Exception along with this program;
+  22:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+  23:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // <http://www.gnu.org/licenses/>.
+  24:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  25:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** /** @file include/cmath
+  26:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****  *  This is a Standard C++ Library file.  You should @c \#include this file
+  27:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****  *  in your programs, rather than any of the @a *.h implementation files.
+  28:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****  *
+  29:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****  *  This is the C++ version of the Standard C Library header @c math.h,
+  30:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****  *  and its contents are (mostly) the same as that header, but are all
+  31:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****  *  contained in the namespace @c std (except for names which are defined
+  32:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****  *  as macros in C).
+  33:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****  */
+  34:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  35:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** //
+  36:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // ISO C++ 14882: 26.5  C library
+  37:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** //
+  38:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 15
+
+
+  39:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #pragma GCC system_header
+  40:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  41:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #include <bits/c++config.h>
+  42:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #include <bits/cpp_type_traits.h>
+  43:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #include <ext/type_traits.h>
+  44:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #define _GLIBCXX_INCLUDE_NEXT_C_HEADERS
+  45:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #include_next <math.h>
+  46:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef _GLIBCXX_INCLUDE_NEXT_C_HEADERS
+  47:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #include <bits/std_abs.h>
+  48:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  49:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef _GLIBCXX_CMATH
+  50:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #define _GLIBCXX_CMATH 1
+  51:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  52:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** // Get rid of those macros defined in <math.h> in lieu of real functions.
+  53:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef div
+  54:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef acos
+  55:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef asin
+  56:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef atan
+  57:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef atan2
+  58:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef ceil
+  59:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef cos
+  60:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef cosh
+  61:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef exp
+  62:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef fabs
+  63:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef floor
+  64:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef fmod
+  65:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef frexp
+  66:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef ldexp
+  67:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef log
+  68:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef log10
+  69:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef modf
+  70:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef pow
+  71:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef sin
+  72:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef sinh
+  73:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef sqrt
+  74:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef tan
+  75:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #undef tanh
+  76:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  77:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** extern "C++"
+  78:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** {
+  79:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** namespace std _GLIBCXX_VISIBILITY(default)
+  80:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** {
+  81:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** _GLIBCXX_BEGIN_NAMESPACE_VERSION
+  82:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  83:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::acos;
+  84:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  85:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+  86:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+  87:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   acos(float __x)
+  88:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_acosf(__x); }
+  89:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  90:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+  91:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   acos(long double __x)
+  92:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_acosl(__x); }
+  93:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+  94:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+  95:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 16
+
+
+  96:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+  97:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value, 
+  98:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+  99:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     acos(_Tp __x)
+ 100:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_acos(__x); }
+ 101:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 102:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::asin;
+ 103:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 104:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 105:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 106:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   asin(float __x)
+ 107:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_asinf(__x); }
+ 108:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 109:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 110:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   asin(long double __x)
+ 111:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_asinl(__x); }
+ 112:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 113:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 114:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 115:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 116:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value,
+ 117:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 118:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     asin(_Tp __x)
+ 119:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_asin(__x); }
+ 120:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 121:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::atan;
+ 122:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 123:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 124:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 125:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   atan(float __x)
+ 126:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_atanf(__x); }
+ 127:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 128:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 129:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   atan(long double __x)
+ 130:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_atanl(__x); }
+ 131:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 132:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 133:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 134:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 135:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value,
+ 136:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 137:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     atan(_Tp __x)
+ 138:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_atan(__x); }
+ 139:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 140:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::atan2;
+ 141:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 142:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 143:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 144:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   atan2(float __y, float __x)
+ 145:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_atan2f(__y, __x); }
+ 146:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 147:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 148:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   atan2(long double __y, long double __x)
+ 149:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_atan2l(__y, __x); }
+ 150:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 151:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 152:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp, typename _Up>
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 17
+
+
+ 153:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 154:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__promote_2<_Tp, _Up>::__type
+ 155:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     atan2(_Tp __y, _Up __x)
+ 156:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     {
+ 157:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****       typedef typename __gnu_cxx::__promote_2<_Tp, _Up>::__type __type;
+ 158:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****       return atan2(__type(__y), __type(__x));
+ 159:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     }
+ 160:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 161:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::ceil;
+ 162:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 163:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 164:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 165:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   ceil(float __x)
+ 166:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_ceilf(__x); }
+ 167:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 168:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 169:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   ceil(long double __x)
+ 170:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_ceill(__x); }
+ 171:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 172:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 173:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 174:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 175:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value, 
+ 176:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 177:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     ceil(_Tp __x)
+ 178:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_ceil(__x); }
+ 179:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 180:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::cos;
+ 181:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 182:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 183:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 184:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   cos(float __x)
+ 226              		.loc 10 184 3 view .LVU40
+ 227              	.LBB153:
+ 185:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_cosf(__x); }
+ 228              		.loc 10 185 5 view .LVU41
+ 229              		.loc 10 185 26 is_stmt 0 view .LVU42
+ 230 0064 B0EE680A 		vmov.f32	s0, s17
+ 231 0068 FFF7FEFF 		bl	cosf
+ 232              	.LVL9:
+ 233              		.loc 10 185 26 view .LVU43
+ 234 006c F0EE407A 		vmov.f32	s15, s0
+ 235              	.LBE153:
+ 236              	.LBE152:
+ 237              	.LBB155:
+ 238              	.LBB156:
+ 186:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 187:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 188:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   cos(long double __x)
+ 189:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_cosl(__x); }
+ 190:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 191:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 192:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 193:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 194:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value,
+ 195:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 196:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     cos(_Tp __x)
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 18
+
+
+ 197:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_cos(__x); }
+ 198:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 199:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::cosh;
+ 200:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 201:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 202:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 203:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   cosh(float __x)
+ 204:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_coshf(__x); }
+ 205:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 206:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 207:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   cosh(long double __x)
+ 208:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_coshl(__x); }
+ 209:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 210:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 211:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 212:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 213:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value,
+ 214:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 215:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     cosh(_Tp __x)
+ 216:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_cosh(__x); }
+ 217:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 218:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::exp;
+ 219:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 220:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 221:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 222:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   exp(float __x)
+ 223:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_expf(__x); }
+ 224:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 225:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 226:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   exp(long double __x)
+ 227:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_expl(__x); }
+ 228:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 229:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 230:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 231:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 232:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value,
+ 233:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 234:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     exp(_Tp __x)
+ 235:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_exp(__x); }
+ 236:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 237:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::fabs;
+ 238:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 239:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 240:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 241:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   fabs(float __x)
+ 242:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_fabsf(__x); }
+ 243:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 244:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 245:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   fabs(long double __x)
+ 246:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_fabsl(__x); }
+ 247:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 248:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 249:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 250:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 251:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value,
+ 252:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 253:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     fabs(_Tp __x)
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 19
+
+
+ 254:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_fabs(__x); }
+ 255:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 256:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::floor;
+ 257:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 258:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 259:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 260:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   floor(float __x)
+ 261:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_floorf(__x); }
+ 262:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 263:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 264:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   floor(long double __x)
+ 265:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_floorl(__x); }
+ 266:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 267:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 268:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 269:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 270:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value,
+ 271:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 272:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     floor(_Tp __x)
+ 273:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_floor(__x); }
+ 274:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 275:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::fmod;
+ 276:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 277:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 278:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 279:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   fmod(float __x, float __y)
+ 280:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_fmodf(__x, __y); }
+ 281:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 282:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 283:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   fmod(long double __x, long double __y)
+ 284:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_fmodl(__x, __y); }
+ 285:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 286:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 287:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp, typename _Up>
+ 288:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 289:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__promote_2<_Tp, _Up>::__type
+ 290:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     fmod(_Tp __x, _Up __y)
+ 291:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     {
+ 292:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****       typedef typename __gnu_cxx::__promote_2<_Tp, _Up>::__type __type;
+ 293:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****       return fmod(__type(__x), __type(__y));
+ 294:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     }
+ 295:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 296:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::frexp;
+ 297:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 298:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 299:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline float
+ 300:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   frexp(float __x, int* __exp)
+ 301:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_frexpf(__x, __exp); }
+ 302:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 303:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline long double
+ 304:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   frexp(long double __x, int* __exp)
+ 305:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_frexpl(__x, __exp); }
+ 306:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 307:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 308:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 309:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 310:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value, 
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 20
+
+
+ 311:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 312:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     frexp(_Tp __x, int* __exp)
+ 313:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_frexp(__x, __exp); }
+ 314:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 315:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::ldexp;
+ 316:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 317:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 318:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 319:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   ldexp(float __x, int __exp)
+ 320:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_ldexpf(__x, __exp); }
+ 321:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 322:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 323:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   ldexp(long double __x, int __exp)
+ 324:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_ldexpl(__x, __exp); }
+ 325:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 326:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 327:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 328:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 329:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value, 
+ 330:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 331:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     ldexp(_Tp __x, int __exp)
+ 332:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_ldexp(__x, __exp); }
+ 333:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 334:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::log;
+ 335:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 336:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 337:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 338:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   log(float __x)
+ 339:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_logf(__x); }
+ 340:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 341:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 342:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   log(long double __x)
+ 343:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_logl(__x); }
+ 344:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 345:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 346:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 347:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 348:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value, 
+ 349:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 350:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     log(_Tp __x)
+ 351:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_log(__x); }
+ 352:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 353:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::log10;
+ 354:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 355:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 356:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 357:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   log10(float __x)
+ 358:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_log10f(__x); }
+ 359:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 360:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 361:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   log10(long double __x)
+ 362:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_log10l(__x); }
+ 363:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 364:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 365:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp>
+ 366:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 367:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__enable_if<__is_integer<_Tp>::__value,
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 21
+
+
+ 368:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****                                     double>::__type
+ 369:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     log10(_Tp __x)
+ 370:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     { return __builtin_log10(__x); }
+ 371:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 372:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::modf;
+ 373:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 374:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 375:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline float
+ 376:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   modf(float __x, float* __iptr)
+ 377:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_modff(__x, __iptr); }
+ 378:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 379:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline long double
+ 380:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   modf(long double __x, long double* __iptr)
+ 381:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_modfl(__x, __iptr); }
+ 382:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 383:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 384:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::pow;
+ 385:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 386:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 387:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ 388:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   pow(float __x, float __y)
+ 389:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_powf(__x, __y); }
+ 390:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 391:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR long double
+ 392:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   pow(long double __x, long double __y)
+ 393:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_powl(__x, __y); }
+ 394:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 395:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #if __cplusplus < 201103L
+ 396:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   // _GLIBCXX_RESOLVE_LIB_DEFECTS
+ 397:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   // DR 550. What should the return type of pow(float,int) be?
+ 398:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline double
+ 399:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   pow(double __x, int __i)
+ 400:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_powi(__x, __i); }
+ 401:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 402:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline float
+ 403:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   pow(float __x, int __n)
+ 404:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_powif(__x, __n); }
+ 405:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 406:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline long double
+ 407:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   pow(long double __x, int __n)
+ 408:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_powil(__x, __n); }
+ 409:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 410:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #endif
+ 411:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 412:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   template<typename _Tp, typename _Up>
+ 413:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     inline _GLIBCXX_CONSTEXPR
+ 414:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     typename __gnu_cxx::__promote_2<_Tp, _Up>::__type
+ 415:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     pow(_Tp __x, _Up __y)
+ 416:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     {
+ 417:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****       typedef typename __gnu_cxx::__promote_2<_Tp, _Up>::__type __type;
+ 418:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****       return pow(__type(__x), __type(__y));
+ 419:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****     }
+ 420:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 421:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   using ::sin;
+ 422:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 423:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** #ifndef __CORRECT_ISO_CPP_MATH_H_PROTO
+ 424:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   inline _GLIBCXX_CONSTEXPR float
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 22
+
+
+ 425:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   sin(float __x)
+ 426:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_sinf(__x); }
+ 239              		.loc 10 426 26 view .LVU44
+ 240 0070 B0EE680A 		vmov.f32	s0, s17
+ 241              	.LBE156:
+ 242              	.LBE155:
+ 243              	.LBB158:
+ 244              	.LBB154:
+ 185:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_cosf(__x); }
+ 245              		.loc 10 185 26 view .LVU45
+ 246 0074 F0EE678A 		vmov.f32	s17, s15
+ 247              	.LVL10:
+ 185:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_cosf(__x); }
+ 248              		.loc 10 185 26 view .LVU46
+ 249              	.LBE154:
+ 250              	.LBE158:
+  68:Filter.cpp    ****         float alph = (sin(w0)) / (2.f * Q);
+ 251              		.loc 9 68 9 is_stmt 1 view .LVU47
+ 252              	.LBB159:
+ 253              	.LBI155:
+ 425:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_sinf(__x); }
+ 254              		.loc 10 425 3 view .LVU48
+ 255              	.LBB157:
+ 256              		.loc 10 426 5 view .LVU49
+ 257              		.loc 10 426 26 is_stmt 0 view .LVU50
+ 258 0078 FFF7FEFF 		bl	sinf
+ 259              	.LVL11:
+ 260              		.loc 10 426 26 view .LVU51
+ 261              	.LBE157:
+ 262              	.LBE159:
+ 263              		.loc 9 68 42 view .LVU52
+ 264 007c 9FED9C6A 		vldr.32	s12, .L22+40
+  69:Filter.cpp    **** 
+  70:Filter.cpp    ****         a_0 = 1 + alph;
+ 265              		.loc 9 70 13 view .LVU53
+ 266 0080 F7EE007A 		vmov.f32	s15, #1.0e+0
+  71:Filter.cpp    ****         b_0 = ((float (1 - cosW0)) / 2.f) / a_0;
+ 267              		.loc 9 71 36 view .LVU54
+ 268 0084 F6EE006A 		vmov.f32	s13, #5.0e-1
+  72:Filter.cpp    ****         b_1 = (1.f - cosW0) / a_0;
+  73:Filter.cpp    ****         b_2 = ((1.f - cosW0) / 2.f) / a_0;
+  74:Filter.cpp    ****         a_1 = (-2 * cosW0) / a_0;
+  75:Filter.cpp    ****         a_2 = (1 - alph) / a_0;
+  76:Filter.cpp    **** 
+  77:Filter.cpp    ****         float n_1 = cirBuffIn[(4 + buffPos - 1) % 4];
+ 269              		.loc 9 77 44 view .LVU55
+ 270 0088 0BF10302 		add	r2, fp, #3
+  68:Filter.cpp    **** 
+ 271              		.loc 9 68 42 view .LVU56
+ 272 008c 80EE067A 		vdiv.f32	s14, s0, s12
+ 273              	.LVL12:
+  70:Filter.cpp    ****         b_0 = ((float (1 - cosW0)) / 2.f) / a_0;
+ 274              		.loc 9 70 9 is_stmt 1 view .LVU57
+  78:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 275              		.loc 9 78 44 is_stmt 0 view .LVU58
+ 276 0090 0BF10203 		add	r3, fp, #2
+  77:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 23
+
+
+ 277              		.loc 9 77 49 view .LVU59
+ 278 0094 5042     		rsbs	r0, r2, #0
+ 279 0096 02F00302 		and	r2, r2, #3
+  79:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+  80:Filter.cpp    ****         float yn_2 = cirBuffOut[(4 + buffPos - 2) % 4];
+  81:Filter.cpp    **** 
+  82:Filter.cpp    ****         float fltOut = in * b_0 + n_1 * b_1 + n_2 * b_2 - yn_1 * a_1 - yn_2 * a_2;
+  83:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 280              		.loc 9 83 33 view .LVU60
+ 281 009a 04EB8801 		add	r1, r4, r8, lsl #2
+  84:Filter.cpp    ****         buffPos++;
+ 282              		.loc 9 84 16 view .LVU61
+ 283 009e 0BF1010C 		add	ip, fp, #1
+  77:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 284              		.loc 9 77 49 view .LVU62
+ 285 00a2 00F00300 		and	r0, r0, #3
+  71:Filter.cpp    ****         b_1 = (1.f - cosW0) / a_0;
+ 286              		.loc 9 71 26 view .LVU63
+ 287 00a6 77EEE85A 		vsub.f32	s11, s15, s17
+  77:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 288              		.loc 9 77 49 view .LVU64
+ 289 00aa 58BF     		it	pl
+ 290 00ac 4242     		rsbpl	r2, r0, #0
+  74:Filter.cpp    ****         a_2 = (1 - alph) / a_0;
+ 291              		.loc 9 74 19 view .LVU65
+ 292 00ae B8EE006A 		vmov.f32	s12, #-2.0e+0
+  78:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+ 293              		.loc 9 78 49 view .LVU66
+ 294 00b2 5842     		rsbs	r0, r3, #0
+ 295 00b4 03F00303 		and	r3, r3, #3
+ 296 00b8 00F00300 		and	r0, r0, #3
+  74:Filter.cpp    ****         a_2 = (1 - alph) / a_0;
+ 297              		.loc 9 74 19 view .LVU67
+ 298 00bc 68EE868A 		vmul.f32	s17, s17, s12
+ 299              	.LVL13:
+  71:Filter.cpp    ****         b_1 = (1.f - cosW0) / a_0;
+ 300              		.loc 9 71 36 view .LVU68
+ 301 00c0 25EEA66A 		vmul.f32	s12, s11, s13
+  78:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+ 302              		.loc 9 78 49 view .LVU69
+ 303 00c4 58BF     		it	pl
+ 304 00c6 4342     		rsbpl	r3, r0, #0
+  77:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 305              		.loc 9 77 15 view .LVU70
+ 306 00c8 04EB8200 		add	r0, r4, r2, lsl #2
+  85:Filter.cpp    ****         if(buffPos == 4) {
+ 307              		.loc 9 85 9 view .LVU71
+ 308 00cc BBF1030F 		cmp	fp, #3
+  82:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 309              		.loc 9 82 39 view .LVU72
+ 310 00d0 90ED000A 		vldr.32	s0, [r0]
+  79:Filter.cpp    ****         float yn_2 = cirBuffOut[(4 + buffPos - 2) % 4];
+ 311              		.loc 9 79 15 view .LVU73
+ 312 00d4 0246     		mov	r2, r0
+  78:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+ 313              		.loc 9 78 15 view .LVU74
+ 314 00d6 04EB8300 		add	r0, r4, r3, lsl #2
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 24
+
+
+  82:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 315              		.loc 9 82 57 view .LVU75
+ 316 00da D2ED044A 		vldr.32	s9, [r2, #16]
+  70:Filter.cpp    ****         b_0 = ((float (1 - cosW0)) / 2.f) / a_0;
+ 317              		.loc 9 70 13 view .LVU76
+ 318 00de 77EE276A 		vadd.f32	s13, s14, s15
+ 319              	.LVL14:
+  71:Filter.cpp    ****         b_1 = (1.f - cosW0) / a_0;
+ 320              		.loc 9 71 9 is_stmt 1 view .LVU77
+  82:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 321              		.loc 9 82 45 is_stmt 0 view .LVU78
+ 322 00e2 D0ED003A 		vldr.32	s7, [r0]
+  75:Filter.cpp    **** 
+ 323              		.loc 9 75 18 view .LVU79
+ 324 00e6 37EEC77A 		vsub.f32	s14, s15, s14
+ 325              	.LVL15:
+  82:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 326              		.loc 9 82 15 view .LVU80
+ 327 00ea 90ED045A 		vldr.32	s10, [r0, #16]
+  72:Filter.cpp    ****         b_2 = ((1.f - cosW0) / 2.f) / a_0;
+ 328              		.loc 9 72 13 view .LVU81
+ 329 00ee C5EEA67A 		vdiv.f32	s15, s11, s13
+  71:Filter.cpp    ****         b_1 = (1.f - cosW0) / a_0;
+ 330              		.loc 9 71 13 view .LVU82
+ 331 00f2 C6EE265A 		vdiv.f32	s11, s12, s13
+ 332              	.LVL16:
+  72:Filter.cpp    ****         b_2 = ((1.f - cosW0) / 2.f) / a_0;
+ 333              		.loc 9 72 9 is_stmt 1 view .LVU83
+  73:Filter.cpp    ****         a_1 = (-2 * cosW0) / a_0;
+ 334              		.loc 9 73 9 view .LVU84
+  74:Filter.cpp    ****         a_2 = (1 - alph) / a_0;
+ 335              		.loc 9 74 9 view .LVU85
+  74:Filter.cpp    ****         a_2 = (1 - alph) / a_0;
+ 336              		.loc 9 74 13 is_stmt 0 view .LVU86
+ 337 00f6 88EEA64A 		vdiv.f32	s8, s17, s13
+ 338              	.LVL17:
+  75:Filter.cpp    **** 
+ 339              		.loc 9 75 9 is_stmt 1 view .LVU87
+  75:Filter.cpp    **** 
+ 340              		.loc 9 75 13 is_stmt 0 view .LVU88
+ 341 00fa 87EE266A 		vdiv.f32	s12, s14, s13
+ 342              	.LVL18:
+  77:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 343              		.loc 9 77 9 is_stmt 1 view .LVU89
+  78:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+ 344              		.loc 9 78 9 view .LVU90
+  79:Filter.cpp    ****         float yn_2 = cirBuffOut[(4 + buffPos - 2) % 4];
+ 345              		.loc 9 79 9 view .LVU91
+  80:Filter.cpp    **** 
+ 346              		.loc 9 80 9 view .LVU92
+  82:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 347              		.loc 9 82 9 view .LVU93
+  82:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 348              		.loc 9 82 39 is_stmt 0 view .LVU94
+ 349 00fe 27EE800A 		vmul.f32	s0, s15, s0
+  82:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 350              		.loc 9 82 33 view .LVU95
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 25
+
+
+ 351 0102 A5EE880A 		vfma.f32	s0, s11, s16
+  82:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 352              		.loc 9 82 45 view .LVU96
+ 353 0106 A5EEA30A 		vfma.f32	s0, s11, s7
+  82:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 354              		.loc 9 82 57 view .LVU97
+ 355 010a A4EE640A 		vfms.f32	s0, s8, s9
+  82:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 356              		.loc 9 82 15 view .LVU98
+ 357 010e A6EE450A 		vfms.f32	s0, s12, s10
+ 358              	.LVL19:
+  83:Filter.cpp    ****         buffPos++;
+ 359              		.loc 9 83 9 is_stmt 1 view .LVU99
+  83:Filter.cpp    ****         buffPos++;
+ 360              		.loc 9 83 33 is_stmt 0 view .LVU100
+ 361 0112 81ED040A 		vstr.32	s0, [r1, #16]
+ 362              	.LVL20:
+  84:Filter.cpp    ****         if(buffPos == 4) {
+ 363              		.loc 9 84 9 is_stmt 1 view .LVU101
+ 364              		.loc 9 85 9 view .LVU102
+ 365 0116 00F0CE80 		beq	.L9
+  84:Filter.cpp    ****         if(buffPos == 4) {
+ 366              		.loc 9 84 16 is_stmt 0 view .LVU103
+ 367 011a C4F820C0 		str	ip, [r4, #32]
+ 368              	.LVL21:
+ 369              	.L10:
+  86:Filter.cpp    ****             buffPos = 0;
+  87:Filter.cpp    ****         }
+  88:Filter.cpp    ****         return fltOut;
+ 370              		.loc 9 88 9 is_stmt 1 view .LVU104
+ 371              		.loc 9 88 9 is_stmt 0 view .LVU105
+ 372              	.LBE151:
+ 373              	.LBE150:
+  26:Main.cpp      ****         out[i] = sample;
+ 374              		.loc 8 26 9 is_stmt 1 view .LVU106
+ 375              		.loc 8 26 16 is_stmt 0 view .LVU107
+ 376 011e 86ED000A 		vstr.32	s0, [r6]
+  27:Main.cpp      ****         float fdbSample = dist.Process(sample);
+ 377              		.loc 8 27 9 is_stmt 1 view .LVU108
+ 378              	.LBE134:
+  19:Main.cpp      ****     {
+ 379              		.loc 8 19 26 is_stmt 0 view .LVU109
+ 380 0122 0836     		adds	r6, r6, #8
+ 381              	.LBB181:
+ 382              		.loc 8 27 39 view .LVU110
+ 383 0124 7348     		ldr	r0, .L22+44
+ 384              	.LBE181:
+  19:Main.cpp      ****     {
+ 385              		.loc 8 19 26 view .LVU111
+ 386 0126 09F10809 		add	r9, r9, #8
+ 387              	.LBB182:
+ 388              		.loc 8 27 39 view .LVU112
+ 389 012a FFF7FEFF 		bl	_ZN7daisysp9Overdrive7ProcessEf
+ 390              	.LVL22:
+ 391              		.loc 8 27 39 view .LVU113
+ 392 012e B0EE408A 		vmov.f32	s16, s0
+ 393              	.LVL23:
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 26
+
+
+  28:Main.cpp      ****         fdbSample = 0.6 * chorus.Process(fdbSample) + 0.4 * fdbSample;
+ 394              		.loc 8 28 9 is_stmt 1 view .LVU114
+ 395              		.loc 8 28 41 is_stmt 0 view .LVU115
+ 396 0132 7148     		ldr	r0, .L22+48
+ 397 0134 FFF7FEFF 		bl	_ZN7daisysp6Chorus7ProcessEf
+ 398              	.LVL24:
+ 399              		.loc 8 28 41 view .LVU116
+ 400 0138 B7EEC00A 		vcvt.f64.f32	d0, s0
+ 401              		.loc 8 28 61 view .LVU117
+ 402 013c B7EEC87A 		vcvt.f64.f32	d7, s16
+ 403              	.LBB161:
+ 404              	.LBB162:
+ 405              		.file 11 "FeedbackDelay.cpp"
+   1:FeedbackDelay.cpp **** class FeedbackDelay 
+   2:FeedbackDelay.cpp **** {
+   3:FeedbackDelay.cpp **** public:
+   4:FeedbackDelay.cpp **** 
+   5:FeedbackDelay.cpp ****     void init(int delayLengthSamples)
+   6:FeedbackDelay.cpp ****     {
+   7:FeedbackDelay.cpp ****         this->circBuf = new float[delayLengthSamples];
+   8:FeedbackDelay.cpp ****         this->circBufPos = 0;
+   9:FeedbackDelay.cpp ****         this->delayLengthSamples = delayLengthSamples;
+  10:FeedbackDelay.cpp ****         for (int i = 0; i < delayLengthSamples; i++)
+  11:FeedbackDelay.cpp ****         {
+  12:FeedbackDelay.cpp ****                 circBuf[i] = 0;
+  13:FeedbackDelay.cpp ****         }
+  14:FeedbackDelay.cpp ****     }
+  15:FeedbackDelay.cpp **** 
+  16:FeedbackDelay.cpp ****     float process(float sample)
+  17:FeedbackDelay.cpp ****     {
+  18:FeedbackDelay.cpp ****         int readFrom = (circBufPos + 1) % delayLengthSamples;
+  19:FeedbackDelay.cpp ****         float output = (1 - 0.4) * sample + 0.6 * circBuf[readFrom];
+ 406              		.loc 11 19 67 view .LVU118
+ 407 0140 DAF80020 		ldr	r2, [r10]
+ 408              	.LBE162:
+ 409              	.LBE161:
+ 410              	.LBE182:
+  19:Main.cpp      ****     {
+ 411              		.loc 8 19 26 view .LVU119
+ 412 0144 07F1010C 		add	ip, r7, #1
+ 413              	.LBB183:
+ 414              		.loc 8 28 59 view .LVU120
+ 415 0148 9FED616B 		vldr.64	d6, .L22+8
+ 416              	.LBB169:
+ 417              	.LBB163:
+  18:FeedbackDelay.cpp ****         float output = (1 - 0.4) * sample + 0.6 * circBuf[readFrom];
+ 418              		.loc 11 18 13 view .LVU121
+ 419 014c DAE90131 		ldrd	r3, r1, [r10, #4]
+ 420              	.LBE163:
+ 421              	.LBE169:
+ 422              		.loc 8 28 53 view .LVU122
+ 423 0150 9FED615B 		vldr.64	d5, .L22+16
+ 424              		.loc 8 28 59 view .LVU123
+ 425 0154 27EE067B 		vmul.f64	d7, d7, d6
+ 426              	.LBB170:
+ 427              	.LBB164:
+  18:FeedbackDelay.cpp ****         float output = (1 - 0.4) * sample + 0.6 * circBuf[readFrom];
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 27
+
+
+ 428              		.loc 11 18 36 view .LVU124
+ 429 0158 0133     		adds	r3, r3, #1
+  18:FeedbackDelay.cpp ****         float output = (1 - 0.4) * sample + 0.6 * circBuf[readFrom];
+ 430              		.loc 11 18 13 view .LVU125
+ 431 015a 93FBF1F0 		sdiv	r0, r3, r1
+ 432              	.LBE164:
+ 433              	.LBE170:
+ 434              		.loc 8 28 53 view .LVU126
+ 435 015e A0EE057B 		vfma.f64	d7, d0, d5
+ 436              	.LVL25:
+  29:Main.cpp      ****         fdbSample = delay.process(fdbSample);
+ 437              		.loc 8 29 9 is_stmt 1 view .LVU127
+ 438              	.LBB171:
+ 439              	.LBI161:
+  16:FeedbackDelay.cpp ****     {
+ 440              		.loc 11 16 11 view .LVU128
+ 441              	.LBB165:
+  18:FeedbackDelay.cpp ****         float output = (1 - 0.4) * sample + 0.6 * circBuf[readFrom];
+ 442              		.loc 11 18 9 view .LVU129
+  18:FeedbackDelay.cpp ****         float output = (1 - 0.4) * sample + 0.6 * circBuf[readFrom];
+ 443              		.loc 11 18 13 is_stmt 0 view .LVU130
+ 444 0162 01FB1033 		mls	r3, r1, r0, r3
+ 445              	.LVL26:
+ 446              		.loc 11 19 9 is_stmt 1 view .LVU131
+ 447              		.loc 11 19 67 is_stmt 0 view .LVU132
+ 448 0166 02EB8302 		add	r2, r2, r3, lsl #2
+ 449 016a 92ED006A 		vldr.32	s12, [r2]
+ 450 016e B7EEC66A 		vcvt.f64.f32	d6, s12
+ 451              	.LBE165:
+ 452              	.LBE171:
+  30:Main.cpp      ****         out[i + 1] = fdbSample * 0.05;
+ 453              		.loc 8 30 32 view .LVU133
+ 454 0172 9FED5B4B 		vldr.64	d4, .L22+24
+ 455              	.LBB172:
+ 456              	.LBB166:
+ 457              		.loc 11 19 49 view .LVU134
+ 458 0176 26EE056B 		vmul.f64	d6, d6, d5
+ 459              	.LBE166:
+ 460              	.LBE172:
+  28:Main.cpp      ****         fdbSample = delay.process(fdbSample);
+ 461              		.loc 8 28 19 view .LVU135
+ 462 017a B7EEC77B 		vcvt.f32.f64	s14, d7
+ 463              	.LVL27:
+ 464              	.LBB173:
+ 465              	.LBB167:
+ 466              		.loc 11 19 36 view .LVU136
+ 467 017e B7EEC77A 		vcvt.f64.f32	d7, s14
+ 468              	.LVL28:
+ 469              		.loc 11 19 43 view .LVU137
+ 470 0182 A7EE056B 		vfma.f64	d6, d7, d5
+ 471              		.loc 11 19 15 view .LVU138
+ 472 0186 B7EEC66B 		vcvt.f32.f64	s12, d6
+ 473              	.LVL29:
+  20:FeedbackDelay.cpp ****         circBuf[readFrom] = output;
+ 474              		.loc 11 20 9 is_stmt 1 view .LVU139
+ 475              	.LBE167:
+ 476              	.LBE173:
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 28
+
+
+ 477              		.loc 8 30 22 is_stmt 0 view .LVU140
+ 478 018a B7EEC67A 		vcvt.f64.f32	d7, s12
+ 479              	.LBB174:
+ 480              	.LBB168:
+ 481              		.loc 11 20 27 view .LVU141
+ 482 018e 82ED006A 		vstr.32	s12, [r2]
+  21:FeedbackDelay.cpp ****         circBufPos = (circBufPos + 1) % delayLengthSamples;
+ 483              		.loc 11 21 9 is_stmt 1 view .LVU142
+ 484              		.loc 11 21 20 is_stmt 0 view .LVU143
+ 485 0192 CAF80430 		str	r3, [r10, #4]
+  22:FeedbackDelay.cpp ****         return output;
+ 486              		.loc 11 22 9 is_stmt 1 view .LVU144
+ 487              	.LVL30:
+ 488              		.loc 11 22 9 is_stmt 0 view .LVU145
+ 489              	.LBE168:
+ 490              	.LBE174:
+ 491              		.loc 8 30 9 is_stmt 1 view .LVU146
+ 492              	.LBE183:
+  19:Main.cpp      ****     {
+ 493              		.loc 8 19 26 is_stmt 0 view .LVU147
+ 494 0196 019B     		ldr	r3, [sp, #4]
+ 495              	.LBB184:
+ 496              		.loc 8 30 32 view .LVU148
+ 497 0198 27EE047B 		vmul.f64	d7, d7, d4
+ 498              	.LBE184:
+  19:Main.cpp      ****     {
+ 499              		.loc 8 19 26 view .LVU149
+ 500 019c 9F42     		cmp	r7, r3
+ 501              	.LBB185:
+ 502              		.loc 8 30 32 view .LVU150
+ 503 019e B7EEC77B 		vcvt.f32.f64	s14, d7
+ 504 01a2 06ED017A 		vstr.32	s14, [r6, #-4]
+ 505              	.LBE185:
+  19:Main.cpp      ****     {
+ 506              		.loc 8 19 5 is_stmt 1 view .LVU151
+ 507              	.LVL31:
+  19:Main.cpp      ****     {
+ 508              		.loc 8 19 26 view .LVU152
+ 509 01a6 00F08980 		beq	.L20
+  19:Main.cpp      ****     {
+ 510              		.loc 8 19 26 is_stmt 0 view .LVU153
+ 511 01aa 6746     		mov	r7, ip
+ 512              	.LVL32:
+ 513              	.L11:
+ 514              	.LBB186:
+  21:Main.cpp      ****         sample += in[i + 1];
+ 515              		.loc 8 21 9 is_stmt 1 discriminator 2 view .LVU154
+ 516              	.LBB175:
+ 517              	.LBB145:
+  18:Filter.cpp    ****         float cosW0 =  cos(w0);
+ 518              		.loc 9 18 37 is_stmt 0 discriminator 2 view .LVU155
+ 519 01ac 95ED0B6A 		vldr.32	s12, [r5, #44]
+ 520              	.LBE145:
+ 521              	.LBE175:
+  23:Main.cpp      ****         sample = hpFilter.processSample(sample);
+ 522              		.loc 8 23 16 discriminator 2 view .LVU156
+ 523 01b0 B6EE009A 		vmov.f32	s18, #5.0e-1
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 29
+
+
+ 524              	.LBB176:
+ 525              	.LBB146:
+  18:Filter.cpp    ****         float cosW0 =  cos(w0);
+ 526              		.loc 9 18 37 discriminator 2 view .LVU157
+ 527 01b4 D5ED0A6A 		vldr.32	s13, [r5, #40]
+  16:Filter.cpp    ****         float Q = 1.22;
+ 528              		.loc 9 16 19 discriminator 2 view .LVU158
+ 529 01b8 D5F820B0 		ldr	fp, [r5, #32]
+  18:Filter.cpp    ****         float cosW0 =  cos(w0);
+ 530              		.loc 9 18 37 discriminator 2 view .LVU159
+ 531 01bc 86EE260A 		vdiv.f32	s0, s12, s13
+ 532              	.LBE146:
+ 533              	.LBE176:
+  21:Main.cpp      ****         sample += in[i + 1];
+ 534              		.loc 8 21 15 discriminator 2 view .LVU160
+ 535 01c0 D9ED008A 		vldr.32	s17, [r9]
+ 536              	.LVL33:
+  22:Main.cpp      ****         sample /= 2;
+ 537              		.loc 8 22 9 is_stmt 1 discriminator 2 view .LVU161
+  22:Main.cpp      ****         sample /= 2;
+ 538              		.loc 8 22 16 is_stmt 0 discriminator 2 view .LVU162
+ 539 01c4 D9ED016A 		vldr.32	s13, [r9, #4]
+ 540              	.LBB177:
+ 541              	.LBB147:
+  16:Filter.cpp    ****         float Q = 1.22;
+ 542              		.loc 9 16 27 discriminator 2 view .LVU163
+ 543 01c8 DBF10003 		rsbs	r3, fp, #0
+ 544 01cc 0BF00308 		and	r8, fp, #3
+ 545 01d0 03F00303 		and	r3, r3, #3
+ 546              	.LBE147:
+ 547              	.LBE177:
+  22:Main.cpp      ****         sample /= 2;
+ 548              		.loc 8 22 16 discriminator 2 view .LVU164
+ 549 01d4 78EEA68A 		vadd.f32	s17, s17, s13
+ 550              	.LVL34:
+  23:Main.cpp      ****         sample = hpFilter.processSample(sample);
+ 551              		.loc 8 23 9 is_stmt 1 discriminator 2 view .LVU165
+ 552              	.LBB178:
+ 553              	.LBB148:
+  16:Filter.cpp    ****         float Q = 1.22;
+ 554              		.loc 9 16 27 is_stmt 0 discriminator 2 view .LVU166
+ 555 01d8 58BF     		it	pl
+ 556 01da C3F10008 		rsbpl	r8, r3, #0
+  18:Filter.cpp    ****         float cosW0 =  cos(w0);
+ 557              		.loc 9 18 31 discriminator 2 view .LVU167
+ 558 01de 9FED3A7B 		vldr.64	d7, .L22
+ 559              	.LBE148:
+ 560              	.LBE178:
+  23:Main.cpp      ****         sample = hpFilter.processSample(sample);
+ 561              		.loc 8 23 16 discriminator 2 view .LVU168
+ 562 01e2 68EE898A 		vmul.f32	s17, s17, s18
+ 563              	.LVL35:
+  24:Main.cpp      ****         sample = lpFilter.processSample(sample);
+ 564              		.loc 8 24 9 is_stmt 1 discriminator 2 view .LVU169
+ 565              	.LBB179:
+ 566              	.LBI135:
+  13:Filter.cpp    ****     {
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 30
+
+
+ 567              		.loc 9 13 11 discriminator 2 view .LVU170
+ 568              	.LBB149:
+  15:Filter.cpp    ****         cirBuffIn[buffPos % 4] = in;
+ 569              		.loc 9 15 9 discriminator 2 view .LVU171
+  16:Filter.cpp    ****         float Q = 1.22;
+ 570              		.loc 9 16 9 discriminator 2 view .LVU172
+  16:Filter.cpp    ****         float Q = 1.22;
+ 571              		.loc 9 16 32 is_stmt 0 discriminator 2 view .LVU173
+ 572 01e6 05EB8803 		add	r3, r5, r8, lsl #2
+ 573 01ea C3ED008A 		vstr.32	s17, [r3]
+  17:Filter.cpp    ****         float w0 = 2.f * M_PI * (Fc / samplerate);
+ 574              		.loc 9 17 9 is_stmt 1 discriminator 2 view .LVU174
+ 575              	.LVL36:
+  18:Filter.cpp    ****         float cosW0 =  cos(w0);
+ 576              		.loc 9 18 9 discriminator 2 view .LVU175
+  18:Filter.cpp    ****         float cosW0 =  cos(w0);
+ 577              		.loc 9 18 37 is_stmt 0 discriminator 2 view .LVU176
+ 578 01ee B7EEC00A 		vcvt.f64.f32	d0, s0
+  18:Filter.cpp    ****         float cosW0 =  cos(w0);
+ 579              		.loc 9 18 31 discriminator 2 view .LVU177
+ 580 01f2 20EE070B 		vmul.f64	d0, d0, d7
+  18:Filter.cpp    ****         float cosW0 =  cos(w0);
+ 581              		.loc 9 18 15 discriminator 2 view .LVU178
+ 582 01f6 B7EEC08B 		vcvt.f32.f64	s16, d0
+ 583              	.LVL37:
+  19:Filter.cpp    ****         float alph = (sin(w0)) / (2.f * Q);
+ 584              		.loc 9 19 9 is_stmt 1 discriminator 2 view .LVU179
+ 585              	.LBB137:
+ 586              	.LBI137:
+ 184:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_cosf(__x); }
+ 587              		.loc 10 184 3 discriminator 2 view .LVU180
+ 588              	.LBB138:
+ 185:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 589              		.loc 10 185 5 discriminator 2 view .LVU181
+ 185:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 590              		.loc 10 185 26 is_stmt 0 discriminator 2 view .LVU182
+ 591 01fa B0EE480A 		vmov.f32	s0, s16
+ 592 01fe FFF7FEFF 		bl	cosf
+ 593              	.LVL38:
+ 594 0202 F0EE407A 		vmov.f32	s15, s0
+ 595              	.LBE138:
+ 596              	.LBE137:
+ 597              	.LBB140:
+ 598              	.LBB141:
+ 599              		.loc 10 426 26 discriminator 2 view .LVU183
+ 600 0206 B0EE480A 		vmov.f32	s0, s16
+ 601              	.LBE141:
+ 602              	.LBE140:
+ 603              	.LBB143:
+ 604              	.LBB139:
+ 185:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 605              		.loc 10 185 26 discriminator 2 view .LVU184
+ 606 020a B0EE678A 		vmov.f32	s16, s15
+ 607              	.LVL39:
+ 185:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath **** 
+ 608              		.loc 10 185 26 discriminator 2 view .LVU185
+ 609              	.LBE139:
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 31
+
+
+ 610              	.LBE143:
+  20:Filter.cpp    **** 
+ 611              		.loc 9 20 9 is_stmt 1 discriminator 2 view .LVU186
+ 612              	.LBB144:
+ 613              	.LBI140:
+ 425:/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cmath ****   { return __builtin_sinf(__x); }
+ 614              		.loc 10 425 3 discriminator 2 view .LVU187
+ 615              	.LBB142:
+ 616              		.loc 10 426 5 discriminator 2 view .LVU188
+ 617              		.loc 10 426 26 is_stmt 0 discriminator 2 view .LVU189
+ 618 020e FFF7FEFF 		bl	sinf
+ 619              	.LVL40:
+ 620              		.loc 10 426 26 discriminator 2 view .LVU190
+ 621              	.LBE142:
+ 622              	.LBE144:
+  20:Filter.cpp    **** 
+ 623              		.loc 9 20 42 discriminator 2 view .LVU191
+ 624 0212 DFED377A 		vldr.32	s15, .L22+40
+  22:Filter.cpp    ****         b_0 = ((float (1 + cosW0)) / 2.f) / a_0;
+ 625              		.loc 9 22 13 discriminator 2 view .LVU192
+ 626 0216 B7EE007A 		vmov.f32	s14, #1.0e+0
+  29:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 627              		.loc 9 29 44 discriminator 2 view .LVU193
+ 628 021a 0BF10302 		add	r2, fp, #3
+  30:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+ 629              		.loc 9 30 44 discriminator 2 view .LVU194
+ 630 021e 0BF10203 		add	r3, fp, #2
+  20:Filter.cpp    **** 
+ 631              		.loc 9 20 42 discriminator 2 view .LVU195
+ 632 0222 C0EE275A 		vdiv.f32	s11, s0, s15
+ 633              	.LVL41:
+  22:Filter.cpp    ****         b_0 = ((float (1 + cosW0)) / 2.f) / a_0;
+ 634              		.loc 9 22 9 is_stmt 1 discriminator 2 view .LVU196
+  35:Filter.cpp    ****         buffPos++;
+ 635              		.loc 9 35 33 is_stmt 0 discriminator 2 view .LVU197
+ 636 0226 05EB8801 		add	r1, r5, r8, lsl #2
+  29:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 637              		.loc 9 29 49 discriminator 2 view .LVU198
+ 638 022a 5042     		rsbs	r0, r2, #0
+ 639 022c 02F00302 		and	r2, r2, #3
+  36:Filter.cpp    ****         if(buffPos == 4) {
+ 640              		.loc 9 36 16 discriminator 2 view .LVU199
+ 641 0230 0BF1010C 		add	ip, fp, #1
+  29:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 642              		.loc 9 29 49 discriminator 2 view .LVU200
+ 643 0234 00F00300 		and	r0, r0, #3
+  23:Filter.cpp    ****         b_1 = (-1.f * (1.f + cosW0)) / a_0;
+ 644              		.loc 9 23 26 discriminator 2 view .LVU201
+ 645 0238 78EE076A 		vadd.f32	s13, s16, s14
+  29:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 646              		.loc 9 29 49 discriminator 2 view .LVU202
+ 647 023c 58BF     		it	pl
+ 648 023e 4242     		rsbpl	r2, r0, #0
+  26:Filter.cpp    ****         a_2 = (1 - alph) / a_0;
+ 649              		.loc 9 26 19 discriminator 2 view .LVU203
+ 650 0240 F8EE007A 		vmov.f32	s15, #-2.0e+0
+  30:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 32
+
+
+ 651              		.loc 9 30 49 discriminator 2 view .LVU204
+ 652 0244 5842     		rsbs	r0, r3, #0
+ 653 0246 03F00303 		and	r3, r3, #3
+  23:Filter.cpp    ****         b_1 = (-1.f * (1.f + cosW0)) / a_0;
+ 654              		.loc 9 23 36 discriminator 2 view .LVU205
+ 655 024a 26EE896A 		vmul.f32	s12, s13, s18
+  30:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+ 656              		.loc 9 30 49 discriminator 2 view .LVU206
+ 657 024e 00F00300 		and	r0, r0, #3
+  24:Filter.cpp    ****         b_2 = ((1.f + cosW0) / 2.f) / a_0;
+ 658              		.loc 9 24 21 discriminator 2 view .LVU207
+ 659 0252 B1EE663A 		vneg.f32	s6, s13
+  26:Filter.cpp    ****         a_2 = (1 - alph) / a_0;
+ 660              		.loc 9 26 19 discriminator 2 view .LVU208
+ 661 0256 68EE277A 		vmul.f32	s15, s16, s15
+  30:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+ 662              		.loc 9 30 49 discriminator 2 view .LVU209
+ 663 025a 58BF     		it	pl
+ 664 025c 4342     		rsbpl	r3, r0, #0
+  29:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 665              		.loc 9 29 15 discriminator 2 view .LVU210
+ 666 025e 05EB8200 		add	r0, r5, r2, lsl #2
+  37:Filter.cpp    ****             buffPos = 0;
+ 667              		.loc 9 37 9 discriminator 2 view .LVU211
+ 668 0262 BBF1030F 		cmp	fp, #3
+  34:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 669              		.loc 9 34 39 discriminator 2 view .LVU212
+ 670 0266 D0ED003A 		vldr.32	s7, [r0]
+  31:Filter.cpp    ****         float yn_2 = cirBuffOut[(4 + buffPos - 2) % 4];
+ 671              		.loc 9 31 15 discriminator 2 view .LVU213
+ 672 026a 0246     		mov	r2, r0
+  30:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+ 673              		.loc 9 30 15 discriminator 2 view .LVU214
+ 674 026c 05EB8300 		add	r0, r5, r3, lsl #2
+  34:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 675              		.loc 9 34 57 discriminator 2 view .LVU215
+ 676 0270 D2ED044A 		vldr.32	s9, [r2, #16]
+  22:Filter.cpp    ****         b_0 = ((float (1 + cosW0)) / 2.f) / a_0;
+ 677              		.loc 9 22 13 discriminator 2 view .LVU216
+ 678 0274 75EE876A 		vadd.f32	s13, s11, s14
+ 679              	.LVL42:
+  23:Filter.cpp    ****         b_1 = (-1.f * (1.f + cosW0)) / a_0;
+ 680              		.loc 9 23 9 is_stmt 1 discriminator 2 view .LVU217
+  34:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 681              		.loc 9 34 45 is_stmt 0 discriminator 2 view .LVU218
+ 682 0278 90ED004A 		vldr.32	s8, [r0]
+  27:Filter.cpp    **** 
+ 683              		.loc 9 27 18 discriminator 2 view .LVU219
+ 684 027c 37EE657A 		vsub.f32	s14, s14, s11
+  34:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 685              		.loc 9 34 15 discriminator 2 view .LVU220
+ 686 0280 90ED045A 		vldr.32	s10, [r0, #16]
+  24:Filter.cpp    ****         b_2 = ((1.f + cosW0) / 2.f) / a_0;
+ 687              		.loc 9 24 13 discriminator 2 view .LVU221
+ 688 0284 83EE268A 		vdiv.f32	s16, s6, s13
+ 689              	.LVL43:
+  23:Filter.cpp    ****         b_1 = (-1.f * (1.f + cosW0)) / a_0;
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 33
+
+
+ 690              		.loc 9 23 13 discriminator 2 view .LVU222
+ 691 0288 C6EE265A 		vdiv.f32	s11, s12, s13
+ 692              	.LVL44:
+  24:Filter.cpp    ****         b_2 = ((1.f + cosW0) / 2.f) / a_0;
+ 693              		.loc 9 24 9 is_stmt 1 discriminator 2 view .LVU223
+  25:Filter.cpp    ****         a_1 = (-2 * cosW0) / a_0;
+ 694              		.loc 9 25 9 discriminator 2 view .LVU224
+  26:Filter.cpp    ****         a_2 = (1 - alph) / a_0;
+ 695              		.loc 9 26 9 discriminator 2 view .LVU225
+  26:Filter.cpp    ****         a_2 = (1 - alph) / a_0;
+ 696              		.loc 9 26 13 is_stmt 0 discriminator 2 view .LVU226
+ 697 028c 87EEA66A 		vdiv.f32	s12, s15, s13
+ 698              	.LVL45:
+  27:Filter.cpp    **** 
+ 699              		.loc 9 27 9 is_stmt 1 discriminator 2 view .LVU227
+  27:Filter.cpp    **** 
+ 700              		.loc 9 27 13 is_stmt 0 discriminator 2 view .LVU228
+ 701 0290 C7EE267A 		vdiv.f32	s15, s14, s13
+ 702              	.LVL46:
+  29:Filter.cpp    ****         float n_2 = cirBuffIn[(4 + buffPos - 2) % 4];
+ 703              		.loc 9 29 9 is_stmt 1 discriminator 2 view .LVU229
+  30:Filter.cpp    ****         float yn_1 = cirBuffOut[(4 + buffPos - 1) % 4];
+ 704              		.loc 9 30 9 discriminator 2 view .LVU230
+  31:Filter.cpp    ****         float yn_2 = cirBuffOut[(4 + buffPos - 2) % 4];
+ 705              		.loc 9 31 9 discriminator 2 view .LVU231
+  32:Filter.cpp    **** 
+ 706              		.loc 9 32 9 discriminator 2 view .LVU232
+  34:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 707              		.loc 9 34 9 discriminator 2 view .LVU233
+  34:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 708              		.loc 9 34 39 is_stmt 0 discriminator 2 view .LVU234
+ 709 0294 28EE238A 		vmul.f32	s16, s16, s7
+  34:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 710              		.loc 9 34 33 discriminator 2 view .LVU235
+ 711 0298 A8EEA58A 		vfma.f32	s16, s17, s11
+  34:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 712              		.loc 9 34 45 discriminator 2 view .LVU236
+ 713 029c A5EE848A 		vfma.f32	s16, s11, s8
+  34:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 714              		.loc 9 34 57 discriminator 2 view .LVU237
+ 715 02a0 A6EE648A 		vfms.f32	s16, s12, s9
+  34:Filter.cpp    ****         cirBuffOut[buffPos % 4] = fltOut;
+ 716              		.loc 9 34 15 discriminator 2 view .LVU238
+ 717 02a4 A7EEC58A 		vfms.f32	s16, s15, s10
+ 718              	.LVL47:
+  35:Filter.cpp    ****         buffPos++;
+ 719              		.loc 9 35 9 is_stmt 1 discriminator 2 view .LVU239
+  35:Filter.cpp    ****         buffPos++;
+ 720              		.loc 9 35 33 is_stmt 0 discriminator 2 view .LVU240
+ 721 02a8 81ED048A 		vstr.32	s16, [r1, #16]
+ 722              	.LVL48:
+  36:Filter.cpp    ****         if(buffPos == 4) {
+ 723              		.loc 9 36 9 is_stmt 1 discriminator 2 view .LVU241
+  37:Filter.cpp    ****             buffPos = 0;
+ 724              		.loc 9 37 9 discriminator 2 view .LVU242
+ 725 02ac 7FF4BBAE 		bne	.L21
+  38:Filter.cpp    ****         }
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 34
+
+
+ 726              		.loc 9 38 13 view .LVU243
+  38:Filter.cpp    ****         }
+ 727              		.loc 9 38 21 is_stmt 0 view .LVU244
+ 728 02b0 0023     		movs	r3, #0
+ 729              	.LVL49:
+  38:Filter.cpp    ****         }
+ 730              		.loc 9 38 21 view .LVU245
+ 731 02b2 2B62     		str	r3, [r5, #32]
+ 732 02b4 B9E6     		b	.L8
+ 733              	.LVL50:
+ 734              	.L9:
+  38:Filter.cpp    ****         }
+ 735              		.loc 9 38 21 view .LVU246
+ 736              	.LBE149:
+ 737              	.LBE179:
+ 738              	.LBB180:
+ 739              	.LBB160:
+  86:Filter.cpp    ****         }
+ 740              		.loc 9 86 13 is_stmt 1 view .LVU247
+  86:Filter.cpp    ****         }
+ 741              		.loc 9 86 21 is_stmt 0 view .LVU248
+ 742 02b6 0023     		movs	r3, #0
+ 743              	.LVL51:
+  86:Filter.cpp    ****         }
+ 744              		.loc 9 86 21 view .LVU249
+ 745 02b8 2362     		str	r3, [r4, #32]
+ 746 02ba 30E7     		b	.L10
+ 747              	.LVL52:
+ 748              	.L20:
+  86:Filter.cpp    ****         }
+ 749              		.loc 9 86 21 view .LVU250
+ 750              	.LBE160:
+ 751              	.LBE180:
+ 752              	.LBE186:
+ 753              	.LBE188:
+  31:Main.cpp      ****     }
+  32:Main.cpp      **** }
+ 754              		.loc 8 32 1 view .LVU251
+ 755 02bc 03B0     		add	sp, sp, #12
+ 756              		.cfi_def_cfa_offset 52
+ 757              		@ sp needed
+ 758 02be BDEC048B 		vldm	sp!, {d8-d9}
+ 759              		.cfi_restore 82
+ 760              		.cfi_restore 83
+ 761              		.cfi_restore 80
+ 762              		.cfi_restore 81
+ 763              		.cfi_def_cfa_offset 36
+ 764 02c2 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 765              	.LVL53:
+ 766              	.L17:
+ 767              		.cfi_def_cfa_offset 0
+ 768              		.cfi_restore 4
+ 769              		.cfi_restore 5
+ 770              		.cfi_restore 6
+ 771              		.cfi_restore 7
+ 772              		.cfi_restore 8
+ 773              		.cfi_restore 9
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 35
+
+
+ 774              		.cfi_restore 10
+ 775              		.cfi_restore 11
+ 776              		.cfi_restore 14
+ 777              		.loc 8 32 1 view .LVU252
+ 778 02c6 7047     		bx	lr
+ 779              	.L23:
+ 780              		.align	3
+ 781              	.L22:
+ 782 02c8 182D4454 		.word	1413754136
+ 783 02cc FB211940 		.word	1075388923
+ 784 02d0 9A999999 		.word	-1717986918
+ 785 02d4 9999D93F 		.word	1071225241
+ 786 02d8 33333333 		.word	858993459
+ 787 02dc 3333E33F 		.word	1071854387
+ 788 02e0 9A999999 		.word	-1717986918
+ 789 02e4 9999A93F 		.word	1068079513
+ 790 02e8 00000000 		.word	.LANCHOR0
+ 791 02ec 00000000 		.word	.LANCHOR1
+ 792 02f0 F6281C40 		.word	1075587318
+ 793 02f4 00000000 		.word	.LANCHOR2
+ 794 02f8 00000000 		.word	chorus
+ 795 02fc 00000000 		.word	.LANCHOR3
+ 796              		.cfi_endproc
+ 797              	.LFE4801:
+ 799              		.section	.text.startup.main,"ax",%progbits
+ 800              		.align	1
+ 801              		.p2align 2,,3
+ 802              		.global	main
+ 803              		.syntax unified
+ 804              		.thumb
+ 805              		.thumb_func
+ 807              	main:
+ 808              	.LFB4802:
+  33:Main.cpp      **** 
+  34:Main.cpp      **** int main(void)
+  35:Main.cpp      **** {
+ 809              		.loc 8 35 1 is_stmt 1 view -0
+ 810              		.cfi_startproc
+ 811              		@ args = 0, pretend = 0, frame = 0
+ 812              		@ frame_needed = 0, uses_anonymous_args = 0
+  36:Main.cpp      ****     hardware.Configure();
+ 813              		.loc 8 36 5 view .LVU254
+  35:Main.cpp      ****     hardware.Configure();
+ 814              		.loc 8 35 1 is_stmt 0 view .LVU255
+ 815 0000 08B5     		push	{r3, lr}
+ 816              		.cfi_def_cfa_offset 8
+ 817              		.cfi_offset 3, -8
+ 818              		.cfi_offset 14, -4
+ 819              		.loc 8 36 23 view .LVU256
+ 820 0002 2B48     		ldr	r0, .L27
+  35:Main.cpp      ****     hardware.Configure();
+ 821              		.loc 8 35 1 view .LVU257
+ 822 0004 2DED028B 		vpush.64	{d8}
+ 823              		.cfi_def_cfa_offset 16
+ 824              		.cfi_offset 80, -16
+ 825              		.cfi_offset 81, -12
+ 826              		.loc 8 36 23 view .LVU258
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 36
+
+
+ 827 0008 FFF7FEFF 		bl	_ZN5daisy9DaisySeed9ConfigureEv
+ 828              	.LVL54:
+  37:Main.cpp      ****     hardware.Init();
+ 829              		.loc 8 37 5 is_stmt 1 view .LVU259
+ 830              		.loc 8 37 18 is_stmt 0 view .LVU260
+ 831 000c 0021     		movs	r1, #0
+ 832 000e 2848     		ldr	r0, .L27
+ 833 0010 FFF7FEFF 		bl	_ZN5daisy9DaisySeed4InitEb
+ 834              	.LVL55:
+  38:Main.cpp      ****     hardware.SetAudioBlockSize(4);
+ 835              		.loc 8 38 5 is_stmt 1 view .LVU261
+ 836              		.loc 8 38 31 is_stmt 0 view .LVU262
+ 837 0014 0421     		movs	r1, #4
+ 838 0016 2648     		ldr	r0, .L27
+ 839 0018 FFF7FEFF 		bl	_ZN5daisy9DaisySeed17SetAudioBlockSizeEj
+ 840              	.LVL56:
+  39:Main.cpp      ****     float samplerate = hardware.AudioSampleRate();
+ 841              		.loc 8 39 5 is_stmt 1 view .LVU263
+ 842              		.loc 8 39 48 is_stmt 0 view .LVU264
+ 843 001c 2448     		ldr	r0, .L27
+ 844 001e FFF7FEFF 		bl	_ZN5daisy9DaisySeed15AudioSampleRateEv
+ 845              	.LVL57:
+  40:Main.cpp      **** 
+  41:Main.cpp      ****     hardware.SetLed(true);
+ 846              		.loc 8 41 20 view .LVU265
+ 847 0022 0121     		movs	r1, #1
+  39:Main.cpp      ****     float samplerate = hardware.AudioSampleRate();
+ 848              		.loc 8 39 48 view .LVU266
+ 849 0024 B0EE408A 		vmov.f32	s16, s0
+ 850              	.LVL58:
+ 851              		.loc 8 41 5 is_stmt 1 view .LVU267
+ 852              		.loc 8 41 20 is_stmt 0 view .LVU268
+ 853 0028 2148     		ldr	r0, .L27
+ 854 002a FFF7FEFF 		bl	_ZN5daisy9DaisySeed6SetLedEb
+ 855              	.LVL59:
+  42:Main.cpp      ****     hpFilter.init(samplerate,140 , 4);
+ 856              		.loc 8 42 5 is_stmt 1 view .LVU269
+ 857              	.LBB196:
+ 858              	.LBI196:
+   6:Filter.cpp    ****     {
+ 859              		.loc 9 6 10 view .LVU270
+ 860              	.LBB197:
+   8:Filter.cpp    ****         this->samplerate = samplerate;
+ 861              		.loc 9 8 9 view .LVU271
+   8:Filter.cpp    ****         this->samplerate = samplerate;
+ 862              		.loc 9 8 28 is_stmt 0 view .LVU272
+ 863 002e 214A     		ldr	r2, .L27+4
+  10:Filter.cpp    ****     }
+ 864              		.loc 9 10 12 view .LVU273
+ 865 0030 2148     		ldr	r0, .L27+8
+   8:Filter.cpp    ****         this->samplerate = samplerate;
+ 866              		.loc 9 8 28 view .LVU274
+ 867 0032 0421     		movs	r1, #4
+ 868              	.LBE197:
+ 869              	.LBE196:
+ 870              	.LBB201:
+ 871              	.LBB202:
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 37
+
+
+  56:Filter.cpp    ****         this->samplerate = samplerate;
+ 872              		.loc 9 56 28 view .LVU275
+ 873 0034 214B     		ldr	r3, .L27+12
+ 874              	.LBE202:
+ 875              	.LBE201:
+  43:Main.cpp      ****     lpFilter.init(samplerate, 739, 4);
+  44:Main.cpp      ****     chorus.Init(samplerate);
+ 876              		.loc 8 44 16 view .LVU276
+ 877 0036 B0EE480A 		vmov.f32	s0, s16
+ 878              	.LBB206:
+ 879              	.LBB203:
+  58:Filter.cpp    ****     }
+ 880              		.loc 9 58 12 view .LVU277
+ 881 003a DFF8A8C0 		ldr	ip, .L27+52
+ 882              	.LBE203:
+ 883              	.LBE206:
+ 884              	.LBB207:
+ 885              	.LBB198:
+  10:Filter.cpp    ****     }
+ 886              		.loc 9 10 12 view .LVU278
+ 887 003e D062     		str	r0, [r2, #44]	@ float
+ 888              	.LBE198:
+ 889              	.LBE207:
+ 890              		.loc 8 44 16 view .LVU279
+ 891 0040 1F48     		ldr	r0, .L27+16
+ 892              	.LBB208:
+ 893              	.LBB199:
+   8:Filter.cpp    ****         this->samplerate = samplerate;
+ 894              		.loc 9 8 28 view .LVU280
+ 895 0042 5162     		str	r1, [r2, #36]
+   9:Filter.cpp    ****         Fc = cutoff;
+ 896              		.loc 9 9 9 is_stmt 1 view .LVU281
+ 897              	.LBE199:
+ 898              	.LBE208:
+ 899              	.LBB209:
+ 900              	.LBB204:
+  56:Filter.cpp    ****         this->samplerate = samplerate;
+ 901              		.loc 9 56 28 is_stmt 0 view .LVU282
+ 902 0044 5962     		str	r1, [r3, #36]
+  58:Filter.cpp    ****     }
+ 903              		.loc 9 58 12 view .LVU283
+ 904 0046 C3F82CC0 		str	ip, [r3, #44]	@ float
+ 905              	.LBE204:
+ 906              	.LBE209:
+ 907              	.LBB210:
+ 908              	.LBB200:
+   9:Filter.cpp    ****         Fc = cutoff;
+ 909              		.loc 9 9 26 view .LVU284
+ 910 004a 82ED0A8A 		vstr.32	s16, [r2, #40]
+  10:Filter.cpp    ****     }
+ 911              		.loc 9 10 9 is_stmt 1 view .LVU285
+ 912              	.LVL60:
+  10:Filter.cpp    ****     }
+ 913              		.loc 9 10 9 is_stmt 0 view .LVU286
+ 914              	.LBE200:
+ 915              	.LBE210:
+  43:Main.cpp      ****     chorus.Init(samplerate);
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 38
+
+
+ 916              		.loc 8 43 5 is_stmt 1 view .LVU287
+ 917              	.LBB211:
+ 918              	.LBI201:
+  54:Filter.cpp    ****     {
+ 919              		.loc 9 54 10 view .LVU288
+ 920              	.LBB205:
+  56:Filter.cpp    ****         this->samplerate = samplerate;
+ 921              		.loc 9 56 9 view .LVU289
+  57:Filter.cpp    ****         Fc = cutoff;
+ 922              		.loc 9 57 9 view .LVU290
+  57:Filter.cpp    ****         Fc = cutoff;
+ 923              		.loc 9 57 26 is_stmt 0 view .LVU291
+ 924 004e 83ED0A8A 		vstr.32	s16, [r3, #40]
+  58:Filter.cpp    ****     }
+ 925              		.loc 9 58 9 is_stmt 1 view .LVU292
+ 926              	.LVL61:
+  58:Filter.cpp    ****     }
+ 927              		.loc 9 58 9 is_stmt 0 view .LVU293
+ 928              	.LBE205:
+ 929              	.LBE211:
+ 930              		.loc 8 44 5 is_stmt 1 view .LVU294
+ 931              		.loc 8 44 16 is_stmt 0 view .LVU295
+ 932 0052 FFF7FEFF 		bl	_ZN7daisysp6Chorus4InitEf
+ 933              	.LVL62:
+  45:Main.cpp      ****     chorus.SetLfoDepth(0.899);
+ 934              		.loc 8 45 5 is_stmt 1 view .LVU296
+ 935              		.loc 8 45 23 is_stmt 0 view .LVU297
+ 936 0056 9FED1B0A 		vldr.32	s0, .L27+20
+ 937 005a 1948     		ldr	r0, .L27+16
+ 938 005c FFF7FEFF 		bl	_ZN7daisysp6Chorus11SetLfoDepthEf
+ 939              	.LVL63:
+  46:Main.cpp      ****     chorus.SetLfoFreq(2.34);
+ 940              		.loc 8 46 5 is_stmt 1 view .LVU298
+ 941              		.loc 8 46 22 is_stmt 0 view .LVU299
+ 942 0060 9FED190A 		vldr.32	s0, .L27+24
+ 943 0064 1648     		ldr	r0, .L27+16
+ 944 0066 FFF7FEFF 		bl	_ZN7daisysp6Chorus10SetLfoFreqEf
+ 945              	.LVL64:
+  47:Main.cpp      ****     chorus.SetFeedback(0.6);
+ 946              		.loc 8 47 5 is_stmt 1 view .LVU300
+ 947              		.loc 8 47 23 is_stmt 0 view .LVU301
+ 948 006a 9FED180A 		vldr.32	s0, .L27+28
+ 949 006e 1448     		ldr	r0, .L27+16
+ 950 0070 FFF7FEFF 		bl	_ZN7daisysp6Chorus11SetFeedbackEf
+ 951              	.LVL65:
+  48:Main.cpp      ****     chorus.SetDelay(0.04);
+ 952              		.loc 8 48 5 is_stmt 1 view .LVU302
+ 953              		.loc 8 48 20 is_stmt 0 view .LVU303
+ 954 0074 9FED160A 		vldr.32	s0, .L27+32
+ 955 0078 1148     		ldr	r0, .L27+16
+ 956 007a FFF7FEFF 		bl	_ZN7daisysp6Chorus8SetDelayEf
+ 957              	.LVL66:
+  49:Main.cpp      ****     dist.SetDrive(0.3);
+ 958              		.loc 8 49 5 is_stmt 1 view .LVU304
+ 959              		.loc 8 49 18 is_stmt 0 view .LVU305
+ 960 007e 9FED150A 		vldr.32	s0, .L27+36
+ 961 0082 1548     		ldr	r0, .L27+40
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 39
+
+
+ 962 0084 FFF7FEFF 		bl	_ZN7daisysp9Overdrive8SetDriveEf
+ 963              	.LVL67:
+  50:Main.cpp      ****     delay.init(2048);
+ 964              		.loc 8 50 5 is_stmt 1 view .LVU306
+ 965              	.LBB212:
+ 966              	.LBI212:
+   5:FeedbackDelay.cpp ****     {
+ 967              		.loc 11 5 10 view .LVU307
+ 968              	.LBB213:
+   7:FeedbackDelay.cpp ****         this->circBufPos = 0;
+ 969              		.loc 11 7 9 view .LVU308
+   7:FeedbackDelay.cpp ****         this->circBufPos = 0;
+ 970              		.loc 11 7 53 is_stmt 0 view .LVU309
+ 971 0088 4FF40050 		mov	r0, #8192
+ 972 008c FFF7FEFF 		bl	_Znaj
+ 973              	.LVL68:
+   7:FeedbackDelay.cpp ****         this->circBufPos = 0;
+ 974              		.loc 11 7 23 view .LVU310
+ 975 0090 124B     		ldr	r3, .L27+44
+   9:FeedbackDelay.cpp ****         for (int i = 0; i < delayLengthSamples; i++)
+ 976              		.loc 11 9 34 view .LVU311
+ 977 0092 4FF40062 		mov	r2, #2048
+   8:FeedbackDelay.cpp ****         this->delayLengthSamples = delayLengthSamples;
+ 978              		.loc 11 8 26 view .LVU312
+ 979 0096 0021     		movs	r1, #0
+   9:FeedbackDelay.cpp ****         for (int i = 0; i < delayLengthSamples; i++)
+ 980              		.loc 11 9 34 view .LVU313
+ 981 0098 9A60     		str	r2, [r3, #8]
+ 982              	.LBB214:
+  12:FeedbackDelay.cpp ****         }
+ 983              		.loc 11 12 28 view .LVU314
+ 984 009a 4FF40052 		mov	r2, #8192
+ 985              	.LBE214:
+   8:FeedbackDelay.cpp ****         this->delayLengthSamples = delayLengthSamples;
+ 986              		.loc 11 8 26 view .LVU315
+ 987 009e C3E90001 		strd	r0, r1, [r3]
+   9:FeedbackDelay.cpp ****         for (int i = 0; i < delayLengthSamples; i++)
+ 988              		.loc 11 9 9 is_stmt 1 view .LVU316
+  10:FeedbackDelay.cpp ****         {
+ 989              		.loc 11 10 9 view .LVU317
+ 990              	.LVL69:
+ 991              	.LBB215:
+  10:FeedbackDelay.cpp ****         {
+ 992              		.loc 11 10 27 view .LVU318
+  12:FeedbackDelay.cpp ****         }
+ 993              		.loc 11 12 28 is_stmt 0 view .LVU319
+ 994 00a2 FFF7FEFF 		bl	memset
+ 995              	.LVL70:
+  12:FeedbackDelay.cpp ****         }
+ 996              		.loc 11 12 28 view .LVU320
+ 997              	.LBE215:
+ 998              	.LBE213:
+ 999              	.LBE212:
+  51:Main.cpp      ****     hardware.StartAudio(AudioCallback);
+ 1000              		.loc 8 51 5 is_stmt 1 view .LVU321
+ 1001              		.loc 8 51 24 is_stmt 0 view .LVU322
+ 1002 00a6 0E49     		ldr	r1, .L27+48
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 40
+
+
+ 1003 00a8 0148     		ldr	r0, .L27
+ 1004 00aa FFF7FEFF 		bl	_ZN5daisy9DaisySeed10StartAudioEPFvPKfPfjE
+ 1005              	.LVL71:
+ 1006              	.L25:
+  52:Main.cpp      ****     for(;;){
+ 1007              		.loc 8 52 5 is_stmt 1 discriminator 1 view .LVU323
+ 1008              		.loc 8 52 5 discriminator 1 view .LVU324
+ 1009              		.loc 8 52 5 discriminator 1 view .LVU325
+ 1010              		.loc 8 52 5 discriminator 1 view .LVU326
+ 1011 00ae FEE7     		b	.L25
+ 1012              	.L28:
+ 1013              		.align	2
+ 1014              	.L27:
+ 1015 00b0 00000000 		.word	.LANCHOR4
+ 1016 00b4 00000000 		.word	.LANCHOR0
+ 1017 00b8 00000C43 		.word	1124859904
+ 1018 00bc 00000000 		.word	.LANCHOR1
+ 1019 00c0 00000000 		.word	chorus
+ 1020 00c4 DD24663F 		.word	1063658717
+ 1021 00c8 8FC21540 		.word	1075167887
+ 1022 00cc 9A99193F 		.word	1058642330
+ 1023 00d0 0AD7233D 		.word	1025758986
+ 1024 00d4 9A99993E 		.word	1050253722
+ 1025 00d8 00000000 		.word	.LANCHOR2
+ 1026 00dc 00000000 		.word	.LANCHOR3
+ 1027 00e0 00000000 		.word	_Z13AudioCallbackPKfPfj
+ 1028 00e4 00C03844 		.word	1144569856
+ 1029              		.cfi_endproc
+ 1030              	.LFE4802:
+ 1032              		.section	.text.startup._GLOBAL__sub_I_hardware,"ax",%progbits
+ 1033              		.align	1
+ 1034              		.p2align 2,,3
+ 1035              		.syntax unified
+ 1036              		.thumb
+ 1037              		.thumb_func
+ 1039              	_GLOBAL__sub_I_hardware:
+ 1040              	.LFB5362:
+  53:Main.cpp      ****     }
+  54:Main.cpp      **** }...
+ 1041              		.loc 8 54 1 view -0
+ 1042              		.cfi_startproc
+ 1043              		@ args = 0, pretend = 0, frame = 0
+ 1044              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1045              	.LBB244:
+ 1046              	.LBI244:
+ 1047              		.loc 8 54 1 view .LVU328
+ 1048              	.LVL72:
+ 1049              	.LBB245:
+ 1050              	.LBB246:
+ 1051              	.LBI246:
+  21:lib/libDaisy/src/daisy_seed.h ****     ~DaisySeed() {}
+ 1052              		.loc 1 21 5 view .LVU329
+ 1053              	.LBB247:
+ 1054              	.LBB248:
+ 1055              	.LBI248:
+ 1056              		.file 12 "lib/libDaisy/src/per/qspi.h"
+   1:lib/libDaisy/src/per/qspi.h **** #ifndef DSY_QSPI
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 41
+
+
+   2:lib/libDaisy/src/per/qspi.h **** #define DSY_QSPI /**< Macro */
+   3:lib/libDaisy/src/per/qspi.h **** 
+   4:lib/libDaisy/src/per/qspi.h **** #ifndef UNIT_TEST // for unit tests, a dummy implementation
+   5:lib/libDaisy/src/per/qspi.h **** 
+   6:lib/libDaisy/src/per/qspi.h **** #include <cstdint>
+   7:lib/libDaisy/src/per/qspi.h **** #include "daisy_core.h" // Added for dsy_gpio_pin typedef
+   8:lib/libDaisy/src/per/qspi.h **** 
+   9:lib/libDaisy/src/per/qspi.h **** #define DSY_QSPI_TEXT       \
+  10:lib/libDaisy/src/per/qspi.h ****     __attribute__((section( \
+  11:lib/libDaisy/src/per/qspi.h ****         ".qspiflash_text"))) /**< used for reading memory in memory_mapped mode. */
+  12:lib/libDaisy/src/per/qspi.h **** #define DSY_QSPI_DATA       \
+  13:lib/libDaisy/src/per/qspi.h ****     __attribute__((section( \
+  14:lib/libDaisy/src/per/qspi.h ****         ".qspiflash_data"))) /**< used for reading memory in memory_mapped mode. */
+  15:lib/libDaisy/src/per/qspi.h **** #define DSY_QSPI_BSS        \
+  16:lib/libDaisy/src/per/qspi.h ****     __attribute__((section( \
+  17:lib/libDaisy/src/per/qspi.h ****         ".qspiflash_bss"))) /**< used for reading memory in memory_mapped mode. */
+  18:lib/libDaisy/src/per/qspi.h **** 
+  19:lib/libDaisy/src/per/qspi.h **** namespace daisy
+  20:lib/libDaisy/src/per/qspi.h **** {
+  21:lib/libDaisy/src/per/qspi.h **** /** @addtogroup serial
+  22:lib/libDaisy/src/per/qspi.h **** @{
+  23:lib/libDaisy/src/per/qspi.h **** */
+  24:lib/libDaisy/src/per/qspi.h **** 
+  25:lib/libDaisy/src/per/qspi.h **** /** 
+  26:lib/libDaisy/src/per/qspi.h ****  Driver for QSPI peripheral to interface with external flash memory. \n 
+  27:lib/libDaisy/src/per/qspi.h ****     Currently supported QSPI Devices: \n 
+  28:lib/libDaisy/src/per/qspi.h ****     * IS25LP080D
+  29:lib/libDaisy/src/per/qspi.h **** */
+  30:lib/libDaisy/src/per/qspi.h **** class QSPIHandle
+  31:lib/libDaisy/src/per/qspi.h **** {
+  32:lib/libDaisy/src/per/qspi.h ****   public:
+  33:lib/libDaisy/src/per/qspi.h ****     enum Result
+  34:lib/libDaisy/src/per/qspi.h ****     {
+  35:lib/libDaisy/src/per/qspi.h ****         OK = 0,
+  36:lib/libDaisy/src/per/qspi.h ****         ERR
+  37:lib/libDaisy/src/per/qspi.h ****     };
+  38:lib/libDaisy/src/per/qspi.h **** 
+  39:lib/libDaisy/src/per/qspi.h ****     /** Indicates the current status of the module. 
+  40:lib/libDaisy/src/per/qspi.h ****          *  Warnings are indicated by a leading W.
+  41:lib/libDaisy/src/per/qspi.h ****          *  Errors are indicated by a leading E and cause an immediate exit.
+  42:lib/libDaisy/src/per/qspi.h ****          * 
+  43:lib/libDaisy/src/per/qspi.h ****          *  \param GOOD - No errors have been reported.
+  44:lib/libDaisy/src/per/qspi.h ****          *  \param E_HAL_ERROR - HAL code did not return HAL_OK.
+  45:lib/libDaisy/src/per/qspi.h ****          *  \param E_SWITCHING_MODES - An error was encountered while switching QSPI peripheral mod
+  46:lib/libDaisy/src/per/qspi.h ****          *  \param E_INVALID_MODE - QSPI should not be written to while the program is executing fr
+  47:lib/libDaisy/src/per/qspi.h ****          */
+  48:lib/libDaisy/src/per/qspi.h ****     enum Status
+  49:lib/libDaisy/src/per/qspi.h ****     {
+  50:lib/libDaisy/src/per/qspi.h ****         GOOD = 0,
+  51:lib/libDaisy/src/per/qspi.h ****         E_HAL_ERROR,
+  52:lib/libDaisy/src/per/qspi.h ****         E_SWITCHING_MODES,
+  53:lib/libDaisy/src/per/qspi.h ****         E_INVALID_MODE,
+  54:lib/libDaisy/src/per/qspi.h ****     };
+  55:lib/libDaisy/src/per/qspi.h **** 
+  56:lib/libDaisy/src/per/qspi.h ****     /** Configuration structure for interfacing with QSPI Driver */
+  57:lib/libDaisy/src/per/qspi.h ****     struct Config
+  58:lib/libDaisy/src/per/qspi.h ****     {
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 42
+
+
+  59:lib/libDaisy/src/per/qspi.h ****         /** Flash Devices supported. (Both of these are more-or-less the same, just different sizes
+  60:lib/libDaisy/src/per/qspi.h ****         enum Device
+  61:lib/libDaisy/src/per/qspi.h ****         {
+  62:lib/libDaisy/src/per/qspi.h ****             IS25LP080D,  /**< & */
+  63:lib/libDaisy/src/per/qspi.h ****             IS25LP064A,  /**< & */
+  64:lib/libDaisy/src/per/qspi.h ****             DEVICE_LAST, /**< & */
+  65:lib/libDaisy/src/per/qspi.h ****         };
+  66:lib/libDaisy/src/per/qspi.h **** 
+  67:lib/libDaisy/src/per/qspi.h ****         /** 
+  68:lib/libDaisy/src/per/qspi.h ****         Modes of operation.
+  69:lib/libDaisy/src/per/qspi.h ****         Memory Mapped mode: QSPI configured so that the QSPI can be
+  70:lib/libDaisy/src/per/qspi.h ****         read from starting address 0x90000000. Writing is not
+  71:lib/libDaisy/src/per/qspi.h ****         possible in this mode. \n 
+  72:lib/libDaisy/src/per/qspi.h ****         Indirect Polling mode: Device driver enabled. 
+  73:lib/libDaisy/src/per/qspi.h ****         */
+  74:lib/libDaisy/src/per/qspi.h ****         enum Mode
+  75:lib/libDaisy/src/per/qspi.h ****         {
+  76:lib/libDaisy/src/per/qspi.h ****             MEMORY_MAPPED,    /**< & */
+  77:lib/libDaisy/src/per/qspi.h ****             INDIRECT_POLLING, /**< & */
+  78:lib/libDaisy/src/per/qspi.h ****             MODE_LAST,
+  79:lib/libDaisy/src/per/qspi.h ****         };
+  80:lib/libDaisy/src/per/qspi.h **** 
+  81:lib/libDaisy/src/per/qspi.h ****         //SCK,  CE# (active low)
+  82:lib/libDaisy/src/per/qspi.h ****         struct
+  83:lib/libDaisy/src/per/qspi.h ****         {
+  84:lib/libDaisy/src/per/qspi.h ****             dsy_gpio_pin io0; /**< & */
+  85:lib/libDaisy/src/per/qspi.h ****             dsy_gpio_pin io1; /**< & */
+  86:lib/libDaisy/src/per/qspi.h ****             dsy_gpio_pin io2; /**< & */
+  87:lib/libDaisy/src/per/qspi.h ****             dsy_gpio_pin io3; /**< & */
+  88:lib/libDaisy/src/per/qspi.h ****             dsy_gpio_pin clk; /**< & */
+  89:lib/libDaisy/src/per/qspi.h ****             dsy_gpio_pin ncs; /**< & */
+  90:lib/libDaisy/src/per/qspi.h ****         } pin_config;
+  91:lib/libDaisy/src/per/qspi.h **** 
+  92:lib/libDaisy/src/per/qspi.h ****         Device device;
+  93:lib/libDaisy/src/per/qspi.h ****         Mode   mode;
+  94:lib/libDaisy/src/per/qspi.h ****     };
+  95:lib/libDaisy/src/per/qspi.h **** 
+  96:lib/libDaisy/src/per/qspi.h ****     /** 
+  97:lib/libDaisy/src/per/qspi.h ****         Initializes QSPI peripheral, and Resets, and prepares memory for access.
+  98:lib/libDaisy/src/per/qspi.h ****         \param config should be populated with the mode, device and pin_config before calling this 
+  99:lib/libDaisy/src/per/qspi.h ****         \return Result::OK or Result::ERR
+ 100:lib/libDaisy/src/per/qspi.h ****         */
+ 101:lib/libDaisy/src/per/qspi.h ****     Result Init(const Config& config);
+ 102:lib/libDaisy/src/per/qspi.h **** 
+ 103:lib/libDaisy/src/per/qspi.h ****     /** Returns the current config. */
+ 104:lib/libDaisy/src/per/qspi.h ****     const Config& GetConfig() const;
+ 105:lib/libDaisy/src/per/qspi.h **** 
+ 106:lib/libDaisy/src/per/qspi.h ****     // Couldn't this just be called before anything else in init? That
+ 107:lib/libDaisy/src/per/qspi.h ****     // would make manually calling it unnecessary.
+ 108:lib/libDaisy/src/per/qspi.h ****     /** 
+ 109:lib/libDaisy/src/per/qspi.h ****         Deinitializes the peripheral
+ 110:lib/libDaisy/src/per/qspi.h ****         This should be called before reinitializing QSPI in a different mode.
+ 111:lib/libDaisy/src/per/qspi.h ****         \return Result::OK or Result::ERR
+ 112:lib/libDaisy/src/per/qspi.h ****         */
+ 113:lib/libDaisy/src/per/qspi.h ****     Result DeInit();
+ 114:lib/libDaisy/src/per/qspi.h **** 
+ 115:lib/libDaisy/src/per/qspi.h ****     /** 
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 43
+
+
+ 116:lib/libDaisy/src/per/qspi.h ****         Writes a single page to to the specified address on the QSPI chip.
+ 117:lib/libDaisy/src/per/qspi.h ****         For IS25LP*, page size is 256 bytes.
+ 118:lib/libDaisy/src/per/qspi.h ****         \param address Address to write to
+ 119:lib/libDaisy/src/per/qspi.h ****         \param size Buffer size
+ 120:lib/libDaisy/src/per/qspi.h ****         \param buffer Buffer to write
+ 121:lib/libDaisy/src/per/qspi.h ****         \return Result::OK or Result::ERR
+ 122:lib/libDaisy/src/per/qspi.h ****         */
+ 123:lib/libDaisy/src/per/qspi.h ****     Result WritePage(uint32_t address, uint32_t size, uint8_t* buffer);
+ 124:lib/libDaisy/src/per/qspi.h **** 
+ 125:lib/libDaisy/src/per/qspi.h ****     /** 
+ 126:lib/libDaisy/src/per/qspi.h ****         Writes data in buffer to to the QSPI. Starting at address to address+size 
+ 127:lib/libDaisy/src/per/qspi.h ****         \param address Address to write to
+ 128:lib/libDaisy/src/per/qspi.h ****         \param size Buffer size
+ 129:lib/libDaisy/src/per/qspi.h ****         \param buffer Buffer to write
+ 130:lib/libDaisy/src/per/qspi.h ****         \return Result::OK or Result::ERR
+ 131:lib/libDaisy/src/per/qspi.h ****         */
+ 132:lib/libDaisy/src/per/qspi.h ****     Result Write(uint32_t address, uint32_t size, uint8_t* buffer);
+ 133:lib/libDaisy/src/per/qspi.h **** 
+ 134:lib/libDaisy/src/per/qspi.h ****     /** 
+ 135:lib/libDaisy/src/per/qspi.h ****         Erases the area specified on the chip.
+ 136:lib/libDaisy/src/per/qspi.h ****         Erasures will happen by 4K, 32K or 64K increments.
+ 137:lib/libDaisy/src/per/qspi.h ****         Smallest erase possible is 4kB at a time. (on IS25LP*)
+ 138:lib/libDaisy/src/per/qspi.h ****         \param start_addr Address to begin erasing from
+ 139:lib/libDaisy/src/per/qspi.h ****         \param end_addr  Address to stop erasing at
+ 140:lib/libDaisy/src/per/qspi.h ****         \return Result::OK or Result::ERR
+ 141:lib/libDaisy/src/per/qspi.h ****         */
+ 142:lib/libDaisy/src/per/qspi.h ****     Result Erase(uint32_t start_addr, uint32_t end_addr);
+ 143:lib/libDaisy/src/per/qspi.h **** 
+ 144:lib/libDaisy/src/per/qspi.h ****     /**  
+ 145:lib/libDaisy/src/per/qspi.h ****          Erases a single sector of the chip.  
+ 146:lib/libDaisy/src/per/qspi.h ****         TODO: Document the size of this function. 
+ 147:lib/libDaisy/src/per/qspi.h ****         \param address Address of sector to erase
+ 148:lib/libDaisy/src/per/qspi.h ****         \return Result::OK or Result::ERR
+ 149:lib/libDaisy/src/per/qspi.h ****         */
+ 150:lib/libDaisy/src/per/qspi.h ****     Result EraseSector(uint32_t address);
+ 151:lib/libDaisy/src/per/qspi.h **** 
+ 152:lib/libDaisy/src/per/qspi.h ****     /** Returns the current class status. Useful for debugging.
+ 153:lib/libDaisy/src/per/qspi.h ****      *  \returns Status
+ 154:lib/libDaisy/src/per/qspi.h ****      */
+ 155:lib/libDaisy/src/per/qspi.h ****     Status GetStatus();
+ 156:lib/libDaisy/src/per/qspi.h **** 
+ 157:lib/libDaisy/src/per/qspi.h ****     /** Returns a pointer to the actual memory used 
+ 158:lib/libDaisy/src/per/qspi.h ****      *  The memory at this address is read-only
+ 159:lib/libDaisy/src/per/qspi.h ****      *  to write to it use the Write function.
+ 160:lib/libDaisy/src/per/qspi.h ****      * 
+ 161:lib/libDaisy/src/per/qspi.h ****      *  \param offset returns the pointer starting this 
+ 162:lib/libDaisy/src/per/qspi.h ****      *                many bytes into the memory
+ 163:lib/libDaisy/src/per/qspi.h ****     */
+ 164:lib/libDaisy/src/per/qspi.h ****     void* GetData(uint32_t offset = 0);
+ 165:lib/libDaisy/src/per/qspi.h **** 
+ 166:lib/libDaisy/src/per/qspi.h ****     QSPIHandle() : pimpl_(nullptr) {}
+ 1057              		.loc 12 166 5 view .LVU330
+ 1058              	.LBE248:
+ 1059              	.LBE247:
+ 1060              	.LBE246:
+ 1061              	.LBE245:
+ 1062              	.LBE244:
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 44
+
+
+ 1063              		.loc 8 54 1 is_stmt 0 view .LVU331
+ 1064 0000 10B5     		push	{r4, lr}
+ 1065              		.cfi_def_cfa_offset 8
+ 1066              		.cfi_offset 4, -8
+ 1067              		.cfi_offset 14, -4
+ 1068              	.LBB282:
+ 1069              	.LBB279:
+ 1070              	.LBB266:
+ 1071              	.LBB264:
+ 1072              	.LBB253:
+ 1073              	.LBB249:
+ 1074              	.LBB250:
+ 1075              		.loc 12 166 34 view .LVU332
+ 1076 0002 0C48     		ldr	r0, .L31
+ 1077 0004 0024     		movs	r4, #0
+ 1078              	.LBE250:
+ 1079              	.LBE249:
+ 1080              	.LBE253:
+ 1081              	.LBE264:
+ 1082              	.LBE266:
+   8:Main.cpp      **** DaisySeed hardware;
+ 1083              		.loc 8 8 11 view .LVU333
+ 1084 0006 0C4A     		ldr	r2, .L31+4
+ 1085 0008 0C49     		ldr	r1, .L31+8
+ 1086              	.LBB267:
+ 1087              	.LBB265:
+ 1088              	.LBB254:
+ 1089              	.LBB252:
+ 1090              	.LBB251:
+ 1091              		.loc 12 166 34 view .LVU334
+ 1092 000a 0460     		str	r4, [r0]
+ 1093              	.LVL73:
+ 1094              		.loc 12 166 34 view .LVU335
+ 1095              	.LBE251:
+ 1096              	.LBE252:
+ 1097              	.LBE254:
+ 1098              	.LBB255:
+ 1099              	.LBI255:
+  95:lib/libDaisy/src/hid/audio.h ****     ~AudioHandle() {}
+ 1100              		.loc 5 95 5 is_stmt 1 view .LVU336
+ 1101              	.LBB256:
+ 1102              	.LBB257:
+  95:lib/libDaisy/src/hid/audio.h ****     ~AudioHandle() {}
+ 1103              		.loc 5 95 35 is_stmt 0 view .LVU337
+ 1104 000c 4461     		str	r4, [r0, #20]
+ 1105              	.LVL74:
+  95:lib/libDaisy/src/hid/audio.h ****     ~AudioHandle() {}
+ 1106              		.loc 5 95 35 view .LVU338
+ 1107              	.LBE257:
+ 1108              	.LBE256:
+ 1109              	.LBE255:
+ 1110              	.LBB258:
+ 1111              	.LBI258:
+  92:lib/libDaisy/src/per/adc.h ****     ~AdcHandle() {}
+ 1112              		.loc 4 92 5 is_stmt 1 view .LVU339
+  92:lib/libDaisy/src/per/adc.h ****     ~AdcHandle() {}
+ 1113              		.loc 4 92 5 is_stmt 0 view .LVU340
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 45
+
+
+ 1114              	.LBE258:
+ 1115              	.LBB259:
+ 1116              	.LBI259:
+ 1117              		.file 13 "lib/libDaisy/src/per/dac.h"
+   1:lib/libDaisy/src/per/dac.h **** #pragma once
+   2:lib/libDaisy/src/per/dac.h **** #ifndef DSY_DAC_H
+   3:lib/libDaisy/src/per/dac.h **** #define DSY_DAC_H
+   4:lib/libDaisy/src/per/dac.h **** 
+   5:lib/libDaisy/src/per/dac.h **** #include "daisy_core.h"
+   6:lib/libDaisy/src/per/dac.h **** 
+   7:lib/libDaisy/src/per/dac.h **** namespace daisy
+   8:lib/libDaisy/src/per/dac.h **** {
+   9:lib/libDaisy/src/per/dac.h **** /** @brief DAC handle for Built-in DAC Peripheral 
+  10:lib/libDaisy/src/per/dac.h ****  *  @ingroup per_analog
+  11:lib/libDaisy/src/per/dac.h ****  ** 
+  12:lib/libDaisy/src/per/dac.h ****  ** For now only Normal Mode is supported,
+  13:lib/libDaisy/src/per/dac.h ****  ** Sample and hold mode provides reduced power consumption, but requires a bit more setup.
+  14:lib/libDaisy/src/per/dac.h ****  **
+  15:lib/libDaisy/src/per/dac.h ****  ** For now connecting the DAC through other internal peripherals is also not supported.
+  16:lib/libDaisy/src/per/dac.h ****  **
+  17:lib/libDaisy/src/per/dac.h ****  ** Since the DAC channels have dedicated pins we don't need to pass in a pin config like with
+  18:lib/libDaisy/src/per/dac.h ****  ** other modules. However, it is still important to not try to use the DAC pins for anything else.
+  19:lib/libDaisy/src/per/dac.h ****  ** DAC Channel 1 is on PA4, and DAC Channel 2 is on PA5
+  20:lib/libDaisy/src/per/dac.h ****  ***/
+  21:lib/libDaisy/src/per/dac.h **** class DacHandle
+  22:lib/libDaisy/src/per/dac.h **** {
+  23:lib/libDaisy/src/per/dac.h ****   public:
+  24:lib/libDaisy/src/per/dac.h ****     /** Return Values for the DacHandle class */
+  25:lib/libDaisy/src/per/dac.h ****     enum class Result
+  26:lib/libDaisy/src/per/dac.h ****     {
+  27:lib/libDaisy/src/per/dac.h ****         OK,
+  28:lib/libDaisy/src/per/dac.h ****         ERR,
+  29:lib/libDaisy/src/per/dac.h ****     };
+  30:lib/libDaisy/src/per/dac.h **** 
+  31:lib/libDaisy/src/per/dac.h ****     /** Selects which channel(s) will be configured for use. */
+  32:lib/libDaisy/src/per/dac.h ****     enum class Channel
+  33:lib/libDaisy/src/per/dac.h ****     {
+  34:lib/libDaisy/src/per/dac.h ****         ONE,
+  35:lib/libDaisy/src/per/dac.h ****         TWO,
+  36:lib/libDaisy/src/per/dac.h ****         BOTH,
+  37:lib/libDaisy/src/per/dac.h ****     };
+  38:lib/libDaisy/src/per/dac.h **** 
+  39:lib/libDaisy/src/per/dac.h ****     /** Sets the Mode for the DAC channels.
+  40:lib/libDaisy/src/per/dac.h ****      **
+  41:lib/libDaisy/src/per/dac.h ****      ** Polling mode uses the blocking mode to transmit a single value at a time.
+  42:lib/libDaisy/src/per/dac.h ****      **
+  43:lib/libDaisy/src/per/dac.h ****      ** DMA mode uses a buffer, and periodically transmits it triggering a 
+  44:lib/libDaisy/src/per/dac.h ****      ** callback to fill the buffer when it is ready for more samples.
+  45:lib/libDaisy/src/per/dac.h ****      ***/
+  46:lib/libDaisy/src/per/dac.h ****     enum class Mode
+  47:lib/libDaisy/src/per/dac.h ****     {
+  48:lib/libDaisy/src/per/dac.h ****         POLLING,
+  49:lib/libDaisy/src/per/dac.h ****         DMA,
+  50:lib/libDaisy/src/per/dac.h ****     };
+  51:lib/libDaisy/src/per/dac.h **** 
+  52:lib/libDaisy/src/per/dac.h ****     /** Sets the number of bits per sample transmitted out of the DAC.
+  53:lib/libDaisy/src/per/dac.h ****      ** The output range will be: 0V - VDDA
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 46
+
+
+  54:lib/libDaisy/src/per/dac.h ****      ** The resolution will be roughly: bitdepth / (VDDA - 0V) 
+  55:lib/libDaisy/src/per/dac.h ****      ***/
+  56:lib/libDaisy/src/per/dac.h ****     enum class BitDepth
+  57:lib/libDaisy/src/per/dac.h ****     {
+  58:lib/libDaisy/src/per/dac.h ****         BITS_8,
+  59:lib/libDaisy/src/per/dac.h ****         BITS_12
+  60:lib/libDaisy/src/per/dac.h ****     };
+  61:lib/libDaisy/src/per/dac.h **** 
+  62:lib/libDaisy/src/per/dac.h ****     /** Sets whether the DAC output is buffered for higher drive ability. */
+  63:lib/libDaisy/src/per/dac.h ****     enum class BufferState
+  64:lib/libDaisy/src/per/dac.h ****     {
+  65:lib/libDaisy/src/per/dac.h ****         ENABLED,
+  66:lib/libDaisy/src/per/dac.h ****         DISABLED,
+  67:lib/libDaisy/src/per/dac.h ****     };
+  68:lib/libDaisy/src/per/dac.h **** 
+  69:lib/libDaisy/src/per/dac.h ****     /** Configuration structure for initializing the DAC structure. */
+  70:lib/libDaisy/src/per/dac.h ****     struct Config
+  71:lib/libDaisy/src/per/dac.h ****     {
+  72:lib/libDaisy/src/per/dac.h ****         /** Target Samplerate in Hz used to configure the internal 
+  73:lib/libDaisy/src/per/dac.h ****          ** timebase for DMA mode. Does nothing in POLLING mode.
+  74:lib/libDaisy/src/per/dac.h ****          ** If the value is 0 at Init time this will default to 48000Hz 
+  75:lib/libDaisy/src/per/dac.h ****          ** otherwise the driver will attempt meet the target.*/
+  76:lib/libDaisy/src/per/dac.h ****         uint32_t target_samplerate;
+  77:lib/libDaisy/src/per/dac.h **** 
+  78:lib/libDaisy/src/per/dac.h ****         Channel     chn;
+  79:lib/libDaisy/src/per/dac.h ****         Mode        mode;
+  80:lib/libDaisy/src/per/dac.h ****         BitDepth    bitdepth;
+  81:lib/libDaisy/src/per/dac.h ****         BufferState buff_state;
+  82:lib/libDaisy/src/per/dac.h ****     };
+  83:lib/libDaisy/src/per/dac.h **** 
+  84:lib/libDaisy/src/per/dac.h ****     DacHandle() : pimpl_(nullptr) {}
+ 1118              		.loc 13 84 5 is_stmt 1 view .LVU341
+ 1119              	.LBB260:
+ 1120              	.LBB261:
+ 1121              		.loc 13 84 33 is_stmt 0 view .LVU342
+ 1122 000e 0462     		str	r4, [r0, #32]
+ 1123              	.LVL75:
+ 1124              		.loc 13 84 33 view .LVU343
+ 1125              	.LBE261:
+ 1126              	.LBE260:
+ 1127              	.LBE259:
+ 1128              	.LBB262:
+ 1129              	.LBI262:
+  40:lib/libDaisy/src/hid/usb.h **** 
+ 1130              		.loc 3 40 5 is_stmt 1 view .LVU344
+  40:lib/libDaisy/src/hid/usb.h **** 
+ 1131              		.loc 3 40 5 is_stmt 0 view .LVU345
+ 1132              	.LBE262:
+ 1133              	.LBB263:
+ 1134              	.LBI263:
+  77:lib/libDaisy/src/sys/system.h ****     ~System() {}
+ 1135              		.loc 2 77 5 is_stmt 1 view .LVU346
+  77:lib/libDaisy/src/sys/system.h ****     ~System() {}
+ 1136              		.loc 2 77 5 is_stmt 0 view .LVU347
+ 1137              	.LBE263:
+ 1138              	.LBE265:
+ 1139              	.LBE267:
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 47
+
+
+   8:Main.cpp      **** DaisySeed hardware;
+ 1140              		.loc 8 8 11 view .LVU348
+ 1141 0010 FFF7FEFF 		bl	__aeabi_atexit
+ 1142              	.LVL76:
+ 1143              	.LBB268:
+ 1144              	.LBI268:
+   3:Filter.cpp    **** {
+ 1145              		.loc 9 3 7 is_stmt 1 view .LVU349
+ 1146              	.LBB269:
+ 1147 0014 0A48     		ldr	r0, .L31+12
+ 1148              	.LBE269:
+ 1149              	.LBE268:
+ 1150              	.LBB271:
+ 1151              	.LBB272:
+  51:Filter.cpp    **** {
+ 1152              		.loc 9 51 7 is_stmt 0 view .LVU350
+ 1153 0016 0B4B     		ldr	r3, .L31+16
+ 1154              	.LBE272:
+ 1155              	.LBE271:
+ 1156              	.LBB274:
+ 1157              	.LBB270:
+   3:Filter.cpp    **** {
+ 1158              		.loc 9 3 7 view .LVU351
+ 1159 0018 0462     		str	r4, [r0, #32]
+ 1160              	.LVL77:
+   3:Filter.cpp    **** {
+ 1161              		.loc 9 3 7 view .LVU352
+ 1162              	.LBE270:
+ 1163              	.LBE274:
+ 1164              	.LBB275:
+ 1165              	.LBI271:
+  51:Filter.cpp    **** {
+ 1166              		.loc 9 51 7 is_stmt 1 view .LVU353
+ 1167              	.LBE275:
+  11:Main.cpp      **** daisysp::Chorus chorus;
+ 1168              		.loc 8 11 17 is_stmt 0 view .LVU354
+ 1169 001a 0B49     		ldr	r1, .L31+20
+ 1170 001c 064A     		ldr	r2, .L31+4
+ 1171              	.LBB276:
+ 1172              	.LBB273:
+  51:Filter.cpp    **** {
+ 1173              		.loc 9 51 7 view .LVU355
+ 1174 001e 1C62     		str	r4, [r3, #32]
+ 1175              	.LVL78:
+  51:Filter.cpp    **** {
+ 1176              		.loc 9 51 7 view .LVU356
+ 1177              	.LBE273:
+ 1178              	.LBE276:
+ 1179              	.LBB277:
+ 1180              	.LBI277:
+  88:lib/DaisySP/Source/Effects/chorus.h ****     ~Chorus() {}
+ 1181              		.loc 6 88 5 is_stmt 1 view .LVU357
+ 1182              	.LBE277:
+ 1183              	.LBE279:
+ 1184              	.LBE282:
+  88:lib/DaisySP/Source/Effects/chorus.h ****     ~Chorus() {}
+ 1185              		.loc 6 88 14 view .LVU358
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 48
+
+
+ 1186              	.LBB283:
+ 1187              	.LBB280:
+  11:Main.cpp      **** daisysp::Chorus chorus;
+ 1188              		.loc 8 11 17 is_stmt 0 view .LVU359
+ 1189 0020 0A48     		ldr	r0, .L31+24
+ 1190 0022 FFF7FEFF 		bl	__aeabi_atexit
+ 1191              	.LVL79:
+ 1192              	.LBB278:
+ 1193              	.LBI278:
+  23:lib/DaisySP/Source/Effects/overdrive.h ****     ~Overdrive() {}
+ 1194              		.loc 7 23 5 is_stmt 1 view .LVU360
+  23:lib/DaisySP/Source/Effects/overdrive.h ****     ~Overdrive() {}
+ 1195              		.loc 7 23 5 is_stmt 0 view .LVU361
+ 1196              	.LBE278:
+  12:Main.cpp      **** daisysp::Overdrive dist;
+ 1197              		.loc 8 12 20 view .LVU362
+ 1198 0026 044A     		ldr	r2, .L31+4
+ 1199 0028 0949     		ldr	r1, .L31+28
+ 1200 002a 0A48     		ldr	r0, .L31+32
+ 1201              	.LBE280:
+ 1202              	.LBE283:
+ 1203              		.loc 8 54 1 view .LVU363
+ 1204 002c BDE81040 		pop	{r4, lr}
+ 1205              		.cfi_restore 14
+ 1206              		.cfi_restore 4
+ 1207              		.cfi_def_cfa_offset 0
+ 1208              	.LBB284:
+ 1209              	.LBB281:
+  12:Main.cpp      **** daisysp::Overdrive dist;
+ 1210              		.loc 8 12 20 view .LVU364
+ 1211 0030 FFF7FEBF 		b	__aeabi_atexit
+ 1212              	.LVL80:
+ 1213              	.L32:
+ 1214              		.align	2
+ 1215              	.L31:
+ 1216 0034 00000000 		.word	.LANCHOR4
+ 1217 0038 00000000 		.word	__dso_handle
+ 1218 003c 00000000 		.word	_ZN5daisy9DaisySeedD1Ev
+ 1219 0040 00000000 		.word	.LANCHOR0
+ 1220 0044 00000000 		.word	.LANCHOR1
+ 1221 0048 00000000 		.word	_ZN7daisysp6ChorusD1Ev
+ 1222 004c 00000000 		.word	chorus
+ 1223 0050 00000000 		.word	_ZN7daisysp9OverdriveD1Ev
+ 1224 0054 00000000 		.word	.LANCHOR2
+ 1225              	.LBE281:
+ 1226              	.LBE284:
+ 1227              		.cfi_endproc
+ 1228              	.LFE5362:
+ 1230              		.section	.init_array,"aw",%init_array
+ 1231              		.align	2
+ 1232 0000 00000000 		.word	_GLOBAL__sub_I_hardware(target1)
+ 1233              		.global	delay
+ 1234              		.global	dist
+ 1235              		.global	chorus
+ 1236              		.global	lpFilter
+ 1237              		.global	hpFilter
+ 1238              		.global	hardware
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 49
+
+
+ 1239              		.section	.bss.chorus,"aw",%nobits
+ 1240              		.align	2
+ 1243              	chorus:
+ 1244 0000 00000000 		.space	19292
+ 1244      00000000 
+ 1244      00000000 
+ 1244      00000000 
+ 1244      00000000 
+ 1245              		.section	.bss.delay,"aw",%nobits
+ 1246              		.align	2
+ 1247              		.set	.LANCHOR3,. + 0
+ 1250              	delay:
+ 1251 0000 00000000 		.space	12
+ 1251      00000000 
+ 1251      00000000 
+ 1252              		.section	.bss.dist,"aw",%nobits
+ 1253              		.align	2
+ 1254              		.set	.LANCHOR2,. + 0
+ 1257              	dist:
+ 1258 0000 00000000 		.space	12
+ 1258      00000000 
+ 1258      00000000 
+ 1259              		.section	.bss.hardware,"aw",%nobits
+ 1260              		.align	2
+ 1261              		.set	.LANCHOR4,. + 0
+ 1264              	hardware:
+ 1265 0000 00000000 		.space	60
+ 1265      00000000 
+ 1265      00000000 
+ 1265      00000000 
+ 1265      00000000 
+ 1266              		.section	.bss.hpFilter,"aw",%nobits
+ 1267              		.align	2
+ 1268              		.set	.LANCHOR0,. + 0
+ 1271              	hpFilter:
+ 1272 0000 00000000 		.space	48
+ 1272      00000000 
+ 1272      00000000 
+ 1272      00000000 
+ 1272      00000000 
+ 1273              		.section	.bss.lpFilter,"aw",%nobits
+ 1274              		.align	2
+ 1275              		.set	.LANCHOR1,. + 0
+ 1278              	lpFilter:
+ 1279 0000 00000000 		.space	48
+ 1279      00000000 
+ 1279      00000000 
+ 1279      00000000 
+ 1279      00000000 
+ 1280              		.text
+ 1281              	.Letext0:
+ 1282              		.file 14 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/machine/_default_types.h"
+ 1283              		.file 15 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/sys/_stdint.h"
+ 1284              		.file 16 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/stdint.h"
+ 1285              		.file 17 "/Library/DaisyToolchain/0.1.3-ARM/arm/lib/gcc/arm-none-eabi/10.3.1/include/stddef.h"
+ 1286              		.file 18 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/bits/std_abs.h"
+ 1287              		.file 19 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cstdlib"
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 50
+
+
+ 1288              		.file 20 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cstdint"
+ 1289              		.file 21 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/type_traits"
+ 1290              		.file 22 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/debug/debug.h"
+ 1291              		.file 23 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/arm-none-eabi/thu
+ 1292              		.file 24 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/bits/algorithmfwd
+ 1293              		.file 25 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/bits/stl_pair.h"
+ 1294              		.file 26 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/bits/exception_pt
+ 1295              		.file 27 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cstdarg"
+ 1296              		.file 28 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cstdio"
+ 1297              		.file 29 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cstring"
+ 1298              		.file 30 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/cwchar"
+ 1299              		.file 31 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/clocale"
+ 1300              		.file 32 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/bits/basic_string
+ 1301              		.file 33 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/bits/stl_iterator
+ 1302              		.file 34 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/bits/predefined_o
+ 1303              		.file 35 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/sys/_types.h"
+ 1304              		.file 36 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/sys/reent.h"
+ 1305              		.file 37 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/sys/lock.h"
+ 1306              		.file 38 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/math.h"
+ 1307              		.file 39 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/stdlib.h"
+ 1308              		.file 40 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/math.h"
+ 1309              		.file 41 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/stdlib.h"
+ 1310              		.file 42 "lib/libDaisy/src/daisy_core.h"
+ 1311              		.file 43 "lib/libDaisy/src/per/tim.h"
+ 1312              		.file 44 "lib/libDaisy/src/per/sai.h"
+ 1313              		.file 45 "lib/libDaisy/src/util/wav_format.h"
+ 1314              		.file 46 "lib/libDaisy/src/dev/max11300.h"
+ 1315              		.file 47 "lib/libDaisy/src/per/gpio.h"
+ 1316              		.file 48 "lib/libDaisy/src/dev/sdram.h"
+ 1317              		.file 49 "/Library/DaisyToolchain/0.1.3-ARM/arm/lib/gcc/arm-none-eabi/10.3.1/include/stdarg.h"
+ 1318              		.file 50 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/stdio.h"
+ 1319              		.file 51 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/string.h"
+ 1320              		.file 52 "lib/DaisySP/Source/Control/adenv.h"
+ 1321              		.file 53 "lib/DaisySP/Source/Utility/dsp.h"
+ 1322              		.file 54 "lib/DaisySP/Source/Utility/delayline.h"
+ 1323              		.file 55 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/wchar.h"
+ 1324              		.file 56 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/locale.h"
+ 1325              		.file 57 "<built-in>"
+ 1326              		.file 58 "lib/libDaisy/src/dev/sr_595.h"
+ 1327              		.file 59 "/Library/DaisyToolchain/0.1.3-ARM/arm/arm-none-eabi/include/c++/10.3.1/new"
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 51
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Main.cpp
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:19     .text._ZN5daisy9DaisySeedD2Ev:0000000000000000 $t
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:26     .text._ZN5daisy9DaisySeedD2Ev:0000000000000000 _ZN5daisy9DaisySeedD2Ev
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:26     .text._ZN5daisy9DaisySeedD2Ev:0000000000000000 _ZN5daisy9DaisySeedD1Ev
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:67     .text._ZN7daisysp6ChorusD2Ev:0000000000000000 $t
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:74     .text._ZN7daisysp6ChorusD2Ev:0000000000000000 _ZN7daisysp6ChorusD2Ev
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:74     .text._ZN7daisysp6ChorusD2Ev:0000000000000000 _ZN7daisysp6ChorusD1Ev
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:91     .text._ZN7daisysp9OverdriveD2Ev:0000000000000000 $t
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:98     .text._ZN7daisysp9OverdriveD2Ev:0000000000000000 _ZN7daisysp9OverdriveD2Ev
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:98     .text._ZN7daisysp9OverdriveD2Ev:0000000000000000 _ZN7daisysp9OverdriveD1Ev
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:115    .text._Z13AudioCallbackPKfPfj:0000000000000000 $t
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:122    .text._Z13AudioCallbackPKfPfj:0000000000000000 _Z13AudioCallbackPKfPfj
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:782    .text._Z13AudioCallbackPKfPfj:00000000000002c8 $d
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1243   .bss.chorus:0000000000000000 chorus
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:800    .text.startup.main:0000000000000000 $t
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:807    .text.startup.main:0000000000000000 main
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1015   .text.startup.main:00000000000000b0 $d
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1033   .text.startup._GLOBAL__sub_I_hardware:0000000000000000 $t
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1039   .text.startup._GLOBAL__sub_I_hardware:0000000000000000 _GLOBAL__sub_I_hardware
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1216   .text.startup._GLOBAL__sub_I_hardware:0000000000000034 $d
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1231   .init_array:0000000000000000 $d
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1250   .bss.delay:0000000000000000 delay
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1257   .bss.dist:0000000000000000 dist
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1278   .bss.lpFilter:0000000000000000 lpFilter
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1271   .bss.hpFilter:0000000000000000 hpFilter
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1264   .bss.hardware:0000000000000000 hardware
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1240   .bss.chorus:0000000000000000 $d
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1246   .bss.delay:0000000000000000 $d
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1253   .bss.dist:0000000000000000 $d
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1260   .bss.hardware:0000000000000000 $d
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1267   .bss.hpFilter:0000000000000000 $d
+/var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s:1274   .bss.lpFilter:0000000000000000 $d
+                           .group:0000000000000000 _ZN5daisy9DaisySeedD5Ev
+                           .group:0000000000000000 _ZN7daisysp6ChorusD5Ev
+                           .group:0000000000000000 _ZN7daisysp9OverdriveD5Ev
+
+UNDEFINED SYMBOLS
+cosf
+sinf
+_ZN7daisysp9Overdrive7ProcessEf
+_ZN7daisysp6Chorus7ProcessEf
+_ZN5daisy9DaisySeed9ConfigureEv
+_ZN5daisy9DaisySeed4InitEb
+_ZN5daisy9DaisySeed17SetAudioBlockSizeEj
+_ZN5daisy9DaisySeed15AudioSampleRateEv
+_ZN5daisy9DaisySeed6SetLedEb
+_ZN7daisysp6Chorus4InitEf
+_ZN7daisysp6Chorus11SetLfoDepthEf
+_ZN7daisysp6Chorus10SetLfoFreqEf
+_ZN7daisysp6Chorus11SetFeedbackEf
+_ZN7daisysp6Chorus8SetDelayEf
+_ZN7daisysp9Overdrive8SetDriveEf
+_Znaj
+memset
+_ZN5daisy9DaisySeed10StartAudioEPFvPKfPfjE
+__aeabi_atexit
+ARM GAS  /var/folders/lg/9twk84311llgwk38_815qyv80000gp/T//ccIbPiMl.s 			page 52
+
+
+__dso_handle
